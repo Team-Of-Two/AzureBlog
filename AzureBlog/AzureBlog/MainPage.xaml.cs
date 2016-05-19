@@ -26,5 +26,10 @@ namespace AzureBlog
         {
             this.InitializeComponent();
         }
+
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
