@@ -13,14 +13,16 @@ namespace AzureBlog.Models
         public string Content { get; set; }
         public List<string> Categories { get; set; }
         public DateTimeOffset PublishedDateTime { get; set; }
+        public Uri ImageUri { get; set; }
 
-        public Article(string newTitle, List<String> newAuthors, string newContent, List<string> newCategories, DateTimeOffset publishedDateTime)
+        public Article(string newTitle, List<String> newAuthors, string newContent, List<string> newCategories, DateTimeOffset publishedDateTime, Uri newImageUri)
         {
             Title = newTitle;
             Authors = newAuthors;
             Content = newContent;
             Categories = newCategories;
             PublishedDateTime = publishedDateTime;
+            ImageUri = newImageUri;
         }
 
         public override string ToString()
