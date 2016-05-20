@@ -25,7 +25,13 @@ namespace AzureBlog.Models
 
         public async Task<string> GetTitleAsync()
         {
-            feed = await client.RetrieveFeedAsync(sourceUri);
+            try
+            {
+                feed = await client.RetrieveFeedAsync(sourceUri);
+            } catch(Exception e)
+            {
+                throw (e);
+            }
             return feed.Title.Text;
         }
 
@@ -40,7 +46,14 @@ namespace AzureBlog.Models
             string imageUriString;
 
             // Retrieve the latest articles from the RSS feed
-            feed = await client.RetrieveFeedAsync(sourceUri);
+            try
+            {
+                feed = await client.RetrieveFeedAsync(sourceUri);
+            }
+            catch (Exception e)
+            {
+                throw (e);
+            }
             
             // For each SyndicationItem returned from the RSS feed, construct a new Article and add to the list of articles to be returned
             foreach (Windows.Web.Syndication.SyndicationItem item in feed.Items)
