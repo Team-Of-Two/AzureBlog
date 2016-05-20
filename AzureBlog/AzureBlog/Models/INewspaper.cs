@@ -15,5 +15,7 @@ namespace AzureBlog.Models
         List<string> Categories { get; }
 
         void UpdateNewspaper();
+
+        List<IArticle> GetArticlesByCategory(string category);
     }
 }

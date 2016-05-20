@@ -71,5 +71,10 @@ namespace AzureBlog.Models
             }
         }
 
+        public List<IArticle> GetArticlesByCategory(string category)
+        {
+            return Articles.Where(a => a.Categories.Contains(category)).ToList<IArticle>();
+        }
+
     }
 }
