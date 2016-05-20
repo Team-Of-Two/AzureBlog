@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AzureBlog.Models
 {
-    class Editor
+    class RSSEditor : IEditor
     {
         private Uri sourceUri;
         private Windows.Web.Syndication.SyndicationClient client = new Windows.Web.Syndication.SyndicationClient();
         private Windows.Web.Syndication.SyndicationFeed feed = new Windows.Web.Syndication.SyndicationFeed();
 
-        public Editor(string newSourceUri)
+        public RSSEditor(string newSourceUri)
         {
             try
             {
@@ -23,15 +23,15 @@ namespace AzureBlog.Models
             }
         }
 
-        public async Task<string> GetTitle()
+        public async Task<string> GetTitleAsync()
         {
             feed = await client.RetrieveFeedAsync(sourceUri);
             return feed.Title.Text;
         }
 
-        private async Task<List<Article>> GetLatestArticles()
+        public async Task<List<IArticle>> GetLatestArticlesAsync()
         {
-            List<Article> articleList = new List<Article>();
+            List<IArticle> articleList = new List<IArticle>();
             feed = await client.RetrieveFeedAsync(sourceUri);
             List<string> authors;
             List<string> categories = new List<string>();
@@ -56,9 +56,9 @@ namespace AzureBlog.Models
             return articleList;
         }
 
-        public async Task<List<Article>> GetNewArticles(DateTimeOffset publishedSinceDate)
+        public async Task<List<IArticle>> GetLatestArticlesSinceDateAsync(DateTimeOffset publishedSinceDate)
         {
-            List<Article> newArticles = await this.GetLatestArticles();
+            List<IArticle> newArticles = await this.GetLatestArticlesAsync();
             newArticles.RemoveAll(a => a.PublishedDateTime <= publishedSinceDate);
             return newArticles;
         }

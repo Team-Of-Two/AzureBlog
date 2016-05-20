@@ -6,43 +6,44 @@ using System.Threading.Tasks;
 
 namespace AzureBlog.Models
 {
-    class Newspaper
+    class RSSNewspaper : INewspaper
     {
         public string Title { get { return title; } }
-        public List<Article> Articles { get; set; }
+        public List<IArticle> Articles { get { return articles; } }
         public DateTimeOffset LatestArticlePublishedDate { get { return latestArticlePublishedDate; } }
         public List<string> Authors { get { return authors; } }
         public List<string> Categories { get { return categories; } }
 
         private string title;
-        private Editor editor;
+        private List<IArticle> articles;
+        private RSSEditor editor;
         private DateTimeOffset latestArticlePublishedDate = new DateTimeOffset(1900, 1, 1, 1, 0, 0, new TimeSpan(0, 0, 0));
         private List<string> authors = new List<string>();
         private List<string> categories = new List<string>();
 
-        public Newspaper(string newSourceUri)
+        public RSSNewspaper(string newSourceUri)
         {
-            editor = new Editor(newSourceUri);
-            Articles = new List<Article>();
+            editor = new RSSEditor(newSourceUri);
+            articles = new List<IArticle>();
             SetTitle();
             UpdateNewspaper();
         }
 
         private async void SetTitle()
         {
-            title = await editor.GetTitle();
+            title = await editor.GetTitleAsync();
         }
 
         public async void UpdateNewspaper()
         {
             // Get a list of articles published from the newspaper's source via the editor
-            List<Article> newArticles = await editor.GetNewArticles(latestArticlePublishedDate);
+            List<IArticle> newArticles = await editor.GetLatestArticlesSinceDateAsync(latestArticlePublishedDate);
             
             // Iterate through each of the new articles and update the newspaper accordinly
             foreach (var article in newArticles)
             {
                 // add the article to the newspaper
-                Articles.Add(article);
+                articles.Add(article);
 
                 // if the new article's published date is later than the newspaper's latest, then update the newspaper's latestArticlePublishedDate
                 if (article.PublishedDateTime > latestArticlePublishedDate) 
