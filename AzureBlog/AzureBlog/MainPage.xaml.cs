@@ -22,6 +22,8 @@ namespace AzureBlog
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private Models.INewspaper azureBlog = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
+
         public MainPage()
         {
             this.InitializeComponent();
