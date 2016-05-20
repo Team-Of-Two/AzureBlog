@@ -9,18 +9,23 @@ namespace AzureBlog.Models
     class Article
     {
         public string Title { get; set; }
-        public string Author { get; set; }
+        public List<string> Authors { get; set; }
         public string Content { get; set; }
         public List<string> Categories { get; set; }
         public DateTimeOffset PublishedDateTime { get; set; }
 
-        public Article(string newTitle, string newAuthor, string newContent, List<string> newCategories, DateTimeOffset publishedDateTime)
+        public Article(string newTitle, List<String> newAuthors, string newContent, List<string> newCategories, DateTimeOffset publishedDateTime)
         {
             Title = newTitle;
-            Author = newAuthor;
+            Authors = newAuthors;
             Content = newContent;
             Categories = newCategories;
             PublishedDateTime = publishedDateTime;
+        }
+
+        public override string ToString()
+        {
+            return Title;
         }
     }
 }

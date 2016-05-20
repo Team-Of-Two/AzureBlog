@@ -33,15 +33,18 @@ namespace AzureBlog.Models
         {
             List<Article> articleList = new List<Article>();
             feed = await client.RetrieveFeedAsync(sourceUri);
-            string authors;
+            List<string> authors;
             List<string> categories = new List<string>();
             foreach(Windows.Web.Syndication.SyndicationItem item in feed.Items)
             {
-                authors = "";
+                authors = new List<string>();
                 categories = new List<string>();
                 foreach(var author in item.Authors)
                 {
-                    authors = authors + author.Email;
+                    if(!string.IsNullOrEmpty(author.Email))
+                        {
+                        authors.Add(author.Email);
+                    }
                 }
                 foreach(var category in item.Categories)
                 {
