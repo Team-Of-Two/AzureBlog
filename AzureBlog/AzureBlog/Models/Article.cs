@@ -6,23 +6,28 @@ using System.Threading.Tasks;
 
 namespace AzureBlog.Models
 {
-    class Article : IArticle
+    public class Article : IArticle
     {
         public string Title { get; set; }
         public List<string> Authors { get; set; }
         public string Content { get; set; }
         public List<string> Categories { get; set; }
         public DateTimeOffset PublishedDateTime { get; set; }
-        public Uri ImageUri { get; set; }
+        public string ImageUriString { get; set; }
 
-        public Article(string newTitle, List<String> newAuthors, string newContent, List<string> newCategories, DateTimeOffset publishedDateTime, Uri newImageUri)
+        public Article(string newTitle, List<String> newAuthors, string newContent, List<string> newCategories, DateTimeOffset publishedDateTime, string newImageUriString)
         {
             Title = newTitle;
             Authors = newAuthors;
             Content = newContent;
             Categories = newCategories;
             PublishedDateTime = publishedDateTime;
-            ImageUri = newImageUri;
+            ImageUriString = newImageUriString;
+        }
+
+        public Article()
+        {
+
         }
 
         public override string ToString()
