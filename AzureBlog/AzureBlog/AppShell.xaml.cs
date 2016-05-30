@@ -23,8 +23,12 @@ namespace AzureBlog
     /// The "chrome" layer of the app that provides top-level navigation with
     /// proper keyboarding navigation.
     /// </summary>
+    /// 
+
     public sealed partial class AppShell : Page
     {
+        //public Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
+
         private bool isPaddingAdded = false;
         // Declare the top level nav items
         private List<NavMenuItem> navlist = new List<NavMenuItem>(

@@ -60,7 +60,7 @@ namespace AzureBlog.Models
                 // reset the authors and categories lists and the image uri
                 authors = new List<string>();
                 categories = new List<string>();
-                imageUriString = null;
+                imageUriString = "https://aiscaler.com/wp-content/uploads/2014/07/microsoft-azure-logo.jpg";
 
                 // loop through the authors and add them to a list of authors for adding to new Article
                 foreach (var author in item.Authors)
