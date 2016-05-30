@@ -1,32 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace AzureBlog.Models
 {
-    class RSSNewspaper : INewspaper
+    public class RSSNewspaper : INewspaper
     {
         public string Title { get { return title; } }
-        public List<IArticle> Articles { get { return articles; } }
+        public ObservableCollection<Article> Articles { get { return articles; } }
         public DateTimeOffset LatestArticlePublishedDate { get { return latestArticlePublishedDate; } }
         public List<string> Authors { get { return authors; } }
         public List<string> Categories { get { return categories; } }
 
         private string title;
-        private List<IArticle> articles;
+        private ObservableCollection<Article> articles;
         private RSSEditor editor;
         private DateTimeOffset latestArticlePublishedDate = new DateTimeOffset(1900, 1, 1, 1, 0, 0, new TimeSpan(0, 0, 0));
         private List<string> authors = new List<string>();
         private List<string> categories = new List<string>();
 
+        public RSSNewspaper()
+        {
+        }
+
         public RSSNewspaper(string newSourceUri)
         {
             editor = new RSSEditor(newSourceUri);
-            articles = new List<IArticle>();
+            articles = new ObservableCollection<Article>();
             SetTitle();
-            UpdateNewspaper();
+            UpdateNewspaperAsync();
         }
 
         private async void SetTitle()
@@ -34,10 +41,10 @@ namespace AzureBlog.Models
             title = await editor.GetTitleAsync();
         }
 
-        public async void UpdateNewspaper()
+        public async Task UpdateNewspaperAsync()
         {
             // Get a list of articles published from the newspaper's source via the editor
-            List<IArticle> newArticles = await editor.GetLatestArticlesSinceDateAsync(latestArticlePublishedDate);
+            List<Article> newArticles = await editor.GetLatestArticlesSinceDateAsync(latestArticlePublishedDate);
             
             // Iterate through each of the new articles and update the newspaper accordinly
             foreach (var article in newArticles)
@@ -71,9 +78,9 @@ namespace AzureBlog.Models
             }
         }
 
-        public List<IArticle> GetArticlesByCategory(string category)
+        public List<Article> GetArticlesByCategory(string category)
         {
-            return Articles.Where(a => a.Categories.Contains(category)).ToList<IArticle>();
+            return Articles.Where(a => a.Categories.Contains(category)).ToList<Article>();
         }
 
     }

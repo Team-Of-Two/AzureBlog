@@ -13,6 +13,6 @@ namespace AzureBlog.Models
         string Content { get; set; }
         List<string> Categories { get; set; }
         DateTimeOffset PublishedDateTime { get; set; }
-        String ImageUri { get; set; }
+        Uri ImageUri { get; set; }
     }
 }

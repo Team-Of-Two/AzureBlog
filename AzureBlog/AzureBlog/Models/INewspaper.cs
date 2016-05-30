@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,13 @@ namespace AzureBlog.Models
     public interface INewspaper
     {
         string Title { get; }
-        List<IArticle> Articles { get; }
+        ObservableCollection<Article> Articles { get; }
         DateTimeOffset LatestArticlePublishedDate { get; }
         List<string> Authors { get; }
         List<string> Categories { get; }
 
-        void UpdateNewspaper();
+        Task UpdateNewspaperAsync();
 
-        List<IArticle> GetArticlesByCategory(string category);
+        List<Article> GetArticlesByCategory(string category);
     }
 }
