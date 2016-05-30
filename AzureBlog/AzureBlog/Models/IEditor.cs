@@ -9,7 +9,7 @@ namespace AzureBlog.Models
     public interface IEditor
     {
         Task<string> GetTitleAsync();
-        Task<List<IArticle>> GetLatestArticlesAsync();
-        Task<List<IArticle>> GetLatestArticlesSinceDateAsync(DateTimeOffset SinceDate);
+        Task<List<Article>> GetLatestArticlesAsync();
+        Task<List<Article>> GetLatestArticlesSinceDateAsync(DateTimeOffset SinceDate);
     }
 }

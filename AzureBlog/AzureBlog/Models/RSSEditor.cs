@@ -35,12 +35,11 @@ namespace AzureBlog.Models
             return feed.Title.Text;
         }
 
-        public async Task<List<IArticle>> GetLatestArticlesAsync()
+        public async Task<List<Article>> GetLatestArticlesAsync()
         {
-            List<IArticle> articleList = new List<IArticle>();
+            List<Article> articleList = new List<Article>();
             List<string> authors;
             List<string> categories;
-            Uri imageUri;
             int indexOfUri;
             int lengthOfUri;
             string imageUriString;
@@ -61,7 +60,7 @@ namespace AzureBlog.Models
                 // reset the authors and categories lists and the image uri
                 authors = new List<string>();
                 categories = new List<string>();
-                imageUri = null;
+                imageUriString = null;
 
                 // loop through the authors and add them to a list of authors for adding to new Article
                 foreach (var author in item.Authors)
@@ -84,19 +83,18 @@ namespace AzureBlog.Models
                     indexOfUri = item.Summary.Text.IndexOf("src=", item.Summary.Text.IndexOf("<img ")) + 5;
                     lengthOfUri = item.Summary.Text.IndexOf('"', indexOfUri) - indexOfUri;
                     imageUriString = item.Summary.Text.Substring(indexOfUri, lengthOfUri);
-                    imageUri = new Uri(imageUriString);
                 }
                 
                 // construct a new Article and add it to the list of articles to be returned
-                articleList.Add(new Article(item.Title.Text, authors, item.Summary.Text, categories, item.PublishedDate, imageUri));
+                articleList.Add(new Article(item.Title.Text, authors, item.Summary.Text, categories, item.PublishedDate, imageUriString));
 
             }
             return articleList;
         }
 
-        public async Task<List<IArticle>> GetLatestArticlesSinceDateAsync(DateTimeOffset publishedSinceDate)
+        public async Task<List<Article>> GetLatestArticlesSinceDateAsync(DateTimeOffset publishedSinceDate)
         {
-            List<IArticle> newArticles = await this.GetLatestArticlesAsync();
+            List<Article> newArticles = await this.GetLatestArticlesAsync();
             newArticles.RemoveAll(a => a.PublishedDateTime <= publishedSinceDate);
             return newArticles;
         }
