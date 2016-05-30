@@ -29,6 +29,10 @@ namespace AzureBlog.Models
             UpdateNewspaper();
         }
 
+        public RSSNewspaper()
+        {
+        }
+
         private async void SetTitle()
         {
             title = await editor.GetTitleAsync();
