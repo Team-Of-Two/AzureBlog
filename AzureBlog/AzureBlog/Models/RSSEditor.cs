@@ -35,9 +35,9 @@ namespace AzureBlog.Models
             return feed.Title.Text;
         }
 
-        public async Task<List<IArticle>> GetLatestArticlesAsync()
+        public async Task<List<Article>> GetLatestArticlesAsync()
         {
-            List<IArticle> articleList = new List<IArticle>();
+            List<Article> articleList = new List<Article>();
             List<string> authors;
             List<string> categories;
             int indexOfUri;
@@ -92,9 +92,9 @@ namespace AzureBlog.Models
             return articleList;
         }
 
-        public async Task<List<IArticle>> GetLatestArticlesSinceDateAsync(DateTimeOffset publishedSinceDate)
+        public async Task<List<Article>> GetLatestArticlesSinceDateAsync(DateTimeOffset publishedSinceDate)
         {
-            List<IArticle> newArticles = await this.GetLatestArticlesAsync();
+            List<Article> newArticles = await this.GetLatestArticlesAsync();
             newArticles.RemoveAll(a => a.PublishedDateTime <= publishedSinceDate);
             return newArticles;
         }

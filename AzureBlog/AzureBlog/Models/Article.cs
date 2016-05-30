@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AzureBlog.Models
 {
-    class Article : IArticle
+    public class Article : IArticle
     {
         public string Title { get; set; }
         public List<string> Authors { get; set; }
