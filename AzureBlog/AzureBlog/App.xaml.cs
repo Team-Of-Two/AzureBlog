@@ -27,6 +27,8 @@ namespace AzureBlog
     /// </summary>
     sealed partial class App : Application
     {
+        Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -78,9 +80,12 @@ namespace AzureBlog
 
                 shell.AppFrame.NavigationFailed += OnNavigationFailed;
 
+                this.RefreshNewspaperAsync();
+
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
+                    
                 }
             }
 
@@ -120,6 +125,60 @@ namespace AzureBlog
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private async void RefreshNewspaperAsync()
+        {
+            // retrieve newspaper from storage
+            //await this.RetrieveNewspaperFromStorageAsync();
+
+            // update newspaper from rss feed
+            await _currentNewspaper.UpdateNewspaperAsync();
+
+            // save newspaper to storage
+            await this.SendNewspaperToStorageAsync();
+        }
+
+        private async System.Threading.Tasks.Task RetrieveNewspaperFromStorageAsync()
+        {
+            // Open stream from file to read newspaper from, return if it doesn't exist
+            Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            try
+            {
+                Stream stream = await storageFolder.OpenStreamForReadAsync("newspaper.xml");
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(_currentNewspaper.GetType());
+                using (System.Xml.XmlReader reader = System.Xml.XmlReader.Create(stream))
+                {
+                    _currentNewspaper = (Models.RSSNewspaper)serializer.Deserialize(reader);
+                }
+                stream.Dispose();
+            } catch(FileNotFoundException)
+            {
+                return;
+            }
+                
+        }
+
+        private async System.Threading.Tasks.Task SendNewspaperToStorageAsync()
+        {
+            // Create file to save newspaper; replace if exists.
+            Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile =
+                await storageFolder.CreateFileAsync("newspaper.xml",
+                    Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+            Stream stream = await sampleFile.OpenStreamForWriteAsync();
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(_currentNewspaper.GetType());
+
+            using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(stream))
+            {
+                serializer.Serialize(writer, _currentNewspaper);
+            }
+            await stream.FlushAsync();
+            stream.Dispose();
         }
     }
 }
