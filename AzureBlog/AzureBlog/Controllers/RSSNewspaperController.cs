@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace AzureBlog.Controllers
 {
@@ -29,7 +30,7 @@ namespace AzureBlog.Controllers
             }
         }
 
-        public async void UpdateNewspaper()
+        public async Task UpdateNewspaperAsync()
         {
             // Get a list of articles published from the newspaper's source via the editor
             List<Article> newArticlesList = await this.GetNewArticlesAsync();
@@ -41,9 +42,9 @@ namespace AzureBlog.Controllers
                 RSSNewspaper.Articles.Add(article);
 
                 // if the new article's published date is later than the newspaper's latest, then update the newspaper's latestArticlePublishedDate
-                if (article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDate)
+                if (article.PublishedDateTime.DateTime > RSSNewspaper.LatestArticlePublishedDateTime)
                 {
-                    RSSNewspaper.LatestArticlePublishedDate = article.PublishedDateTime;
+                    RSSNewspaper.LatestArticlePublishedDateTime = article.PublishedDateTime.DateTime;
                 }
 
                 // Add any new authors to the newspaper's list of authors
@@ -72,7 +73,7 @@ namespace AzureBlog.Controllers
             List<Article> newArticlesList = await this.GetLatestArticlesAsync();
 
             // remove any articles that the newspaper has already has in it
-            newArticlesList.RemoveAll(a => a.PublishedDateTime <= RSSNewspaper.LatestArticlePublishedDate);
+            newArticlesList.RemoveAll(a => a.PublishedDateTime <= RSSNewspaper.LatestArticlePublishedDateTime);
 
             // return the new articles
             return newArticlesList;
@@ -138,7 +139,51 @@ namespace AzureBlog.Controllers
             return newArticleList;
         }
 
-        private async Task<string> SetNewsPaperTitleAsync()
+        public async Task RetrieveNewspaperFromStorageAsync()
+        {
+            // Open stream from file to read newspaper from, return if it doesn't exist
+            Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            try
+            {
+                Stream stream = await storageFolder.OpenStreamForReadAsync("newspaper.xml");
+                System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(this.RSSNewspaper.GetType());
+                using (System.Xml.XmlReader reader = System.Xml.XmlReader.Create(stream))
+                {
+                    this.RSSNewspaper = (Models.RSSNewspaper)serializer.Deserialize(reader);
+                }
+                stream.Dispose();
+            }
+            catch (FileNotFoundException)
+            {
+                return;
+            }
+
+        }
+
+        public async System.Threading.Tasks.Task SendNewspaperToStorageAsync()
+        {
+            // Create file to save newspaper; replace if exists.
+            Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile =
+                await storageFolder.CreateFileAsync("newspaper.xml",
+                    Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+            Stream stream = await sampleFile.OpenStreamForWriteAsync();
+            System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(this.RSSNewspaper.GetType());
+
+            using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(stream))
+            {
+                serializer.Serialize(writer, this.RSSNewspaper);
+            }
+            await stream.FlushAsync();
+            stream.Dispose();
+        }
+    
+
+    private async Task<string> SetNewsPaperTitleAsync()
         {
             try
             {

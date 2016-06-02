@@ -25,6 +25,9 @@ namespace AzureBlog.Models
             ImageUriString = newImageUriString;
         }
 
+        public Article()
+        { }
+
         public override string ToString()
         {
             return Title;
