@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace AzureBlog.Models
 {
-    class RSSNewspaper : INewspaper
+    public class RSSNewspaper : INewspaper
     {
         public string Title { get; set; }
         public List<Article> Articles { get; set; }
         public List<string> Authors { get; set; }
         public List<string> Categories { get; set; }
-        public DateTimeOffset LatestArticlePublishedDate { get; set; }
+        public DateTime LatestArticlePublishedDateTime { get; set; }
 
         public RSSNewspaper()
         {
@@ -20,7 +20,7 @@ namespace AzureBlog.Models
             Articles = new List<Article>();
             Authors = new List<string>();
             Categories = new List<string>();
-            LatestArticlePublishedDate = new DateTimeOffset(1900, 1, 1, 1, 0, 0, new TimeSpan(0, 0, 0));
+            LatestArticlePublishedDateTime = new DateTime(1900, 1, 1, 1, 0, 0);
         }
         
         public List<Article> GetArticlesByCategory(string category)

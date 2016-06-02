@@ -12,7 +12,7 @@ namespace AzureBlog.Models
         List<Article> Articles { get; set; }
         List<string> Authors { get; set; }
         List<string> Categories { get; set; }
-        DateTimeOffset LatestArticlePublishedDate { get; set; }
+        DateTime LatestArticlePublishedDateTime { get; set; }
 
         List<Article> GetArticlesByCategory(string category);
     }
