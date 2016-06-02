@@ -8,14 +8,12 @@ namespace AzureBlog.Models
 {
     public interface INewspaper
     {
-        string Title { get; }
-        List<IArticle> Articles { get; }
-        DateTimeOffset LatestArticlePublishedDate { get; }
-        List<string> Authors { get; }
-        List<string> Categories { get; }
+        string Title { get; set; }
+        List<Article> Articles { get; set; }
+        List<string> Authors { get; set; }
+        List<string> Categories { get; set; }
+        DateTimeOffset LatestArticlePublishedDate { get; set; }
 
-        void UpdateNewspaper();
-
-        List<IArticle> GetArticlesByCategory(string category);
+        List<Article> GetArticlesByCategory(string category);
     }
 }

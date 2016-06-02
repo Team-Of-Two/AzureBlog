@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\RSSNewspaperController.cs" />
     <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
@@ -102,10 +103,8 @@
     <Compile Include="Controls\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\IEditor.cs" />
     <Compile Include="Models\INewspaper.cs" />
     <Compile Include="Models\Article.cs" />
-    <Compile Include="Models\RSSEditor.cs" />
     <Compile Include="Models\IArticle.cs" />
     <Compile Include="Models\RSSNewspaper.cs" />
     <Compile Include="NavMenuItem.cs" />
