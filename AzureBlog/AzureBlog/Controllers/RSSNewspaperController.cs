@@ -115,7 +115,7 @@ namespace AzureBlog.Controllers
                 // reset the authors and categories lists and the image uri
                 newAuthorsList = new ObservableCollection<string>();
                 newCategoriesList= new ObservableCollection<string>();
-                imageUriString = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/439px-Microsoft_logo.svg.png";
+                imageUriString = "ms-appx:///Assets/AzureLogo.jpg";
 
                 // loop through the authors and add them to a list of authors for adding to new Article
                 foreach (var author in item.Authors)
