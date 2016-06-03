@@ -15,7 +15,7 @@
             IsSwipeEnabled="False"
             CanDragItems="False"
             SelectionMode="Single" RequestedTheme="Light"
-                  ItemsSource="{x:Bind _currentNewspaper.Articles}"
+                  ItemsSource="{x:Bind _currentController.RSSNewspaper.Articles}"
                   >
 
             <GridView.ItemTemplate>

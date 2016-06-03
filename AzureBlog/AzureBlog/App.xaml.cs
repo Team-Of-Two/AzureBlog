@@ -27,7 +27,8 @@ namespace AzureBlog
     /// </summary>
     sealed partial class App : Application
     {
-        Controllers.RSSNewspaperController _currentNewspaperController = new Controllers.RSSNewspaperController("https://azure.microsoft.com/en-us/blog/feed/");
+        public static Controllers.RSSNewspaperController _currentNewspaperController = new Controllers.RSSNewspaperController("https://azure.microsoft.com/en-us/blog/feed/");
+        //need to create singleton at this level. 
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
