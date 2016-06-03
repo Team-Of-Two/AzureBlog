@@ -12,6 +12,7 @@
 
         <GridView x:Name="NewspaperGridView"
             IsItemClickEnabled="True"
+            ItemClick="NewspaperGridView_ItemClick"
             IsSwipeEnabled="False"
             CanDragItems="False"
             SelectionMode="Single" RequestedTheme="Light"
