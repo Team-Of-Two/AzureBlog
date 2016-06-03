@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 namespace AzureBlog.Controllers
 {
-    class RSSNewspaperController
+    public class RSSNewspaperController
     {
         public RSSNewspaper RSSNewspaper = new RSSNewspaper();
 

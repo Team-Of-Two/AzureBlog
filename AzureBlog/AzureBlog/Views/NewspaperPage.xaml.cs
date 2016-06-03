@@ -22,8 +22,8 @@ namespace AzureBlog.Views
     /// </summary>
     public sealed partial class NewspaperPage : Page
     {
-        Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
-
+        //Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
+        Controllers.RSSNewspaperController _currentController = AzureBlog.App._currentNewspaperController;
         
         public NewspaperPage()
         {
