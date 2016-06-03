@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace AzureBlog.Controllers
 {
@@ -33,7 +34,7 @@ namespace AzureBlog.Controllers
         public async Task UpdateNewspaperAsync()
         {
             // Get a list of articles published from the newspaper's source via the editor
-            List<Article> newArticlesList = await this.GetNewArticlesAsync();
+            ObservableCollection<Article> newArticlesList = await this.GetNewArticlesAsync();
 
             // Iterate through each of the new articles and update the newspaper accordinly
             foreach (var article in newArticlesList)
@@ -50,7 +51,7 @@ namespace AzureBlog.Controllers
                 // Add any new authors to the newspaper's list of authors
                 foreach (var author in article.Authors)
                 {
-                    if (!RSSNewspaper.Authors.Exists(e => e.Equals(author))) // if the article's author doesn't exist in the newspaper's list of authors
+                    if (RSSNewspaper.Authors.FirstOrDefault(a => a.Equals(author))==null) // if the article's author doesn't exist in the newspaper's list of authors
                     {
                         RSSNewspaper.Authors.Add(author);
                     }
@@ -59,7 +60,7 @@ namespace AzureBlog.Controllers
                 // Add any new categories to the newspaper's list of categories
                 foreach (var category in article.Categories)
                 {
-                    if (!RSSNewspaper.Categories.Exists(e => e.Equals(category))) // if the article's category doesn't exist in the newspaper's list of categories
+                    if(RSSNewspaper.Categories.FirstOrDefault(c => c.Equals(category))==null) // if the article's category doesn't exist in the newspaper's list of categories
                     {
                         RSSNewspaper.Categories.Add(category);
                     }
@@ -67,24 +68,31 @@ namespace AzureBlog.Controllers
             }
         }
 
-        public async Task<List<Article>> GetNewArticlesAsync()
+        public async Task<ObservableCollection<Article>> GetNewArticlesAsync()
         {
             // get the latest articles from the rss feed
-            List<Article> newArticlesList = await this.GetLatestArticlesAsync();
+            ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync();
+            ObservableCollection<Article> newArticlesList = new ObservableCollection<Article>();
 
             // remove any articles that the newspaper has already has in it
-            newArticlesList.RemoveAll(a => a.PublishedDateTime <= RSSNewspaper.LatestArticlePublishedDateTime);
-
+            foreach(var article in latestArticleList)
+            {
+                if(article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDateTime)
+                {
+                    newArticlesList.Add(article);
+                }
+            }
+            
             // return the new articles
             return newArticlesList;
         }
 
-        public async Task<List<Article>> GetLatestArticlesAsync()
+        public async Task<ObservableCollection<Article>> GetLatestArticlesAsync()
         {
             // set up placeholders for new articles, authors and categories to add to newspaper
-            List<Article> newArticleList = new List<Article>();
-            List<string> newAuthorsList;
-            List<string> newCategoriesList;
+            ObservableCollection<Article> newArticleList = new ObservableCollection<Article>();
+            ObservableCollection<string> newAuthorsList;
+            ObservableCollection<string> newCategoriesList;
 
             // set up temporary working variables
             string imageUriString;
@@ -105,8 +113,8 @@ namespace AzureBlog.Controllers
             foreach (Windows.Web.Syndication.SyndicationItem item in _rssFeed.Items)
             {
                 // reset the authors and categories lists and the image uri
-                newAuthorsList = new List<string>();
-                newCategoriesList= new List<string>();
+                newAuthorsList = new ObservableCollection<string>();
+                newCategoriesList= new ObservableCollection<string>();
                 imageUriString = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/439px-Microsoft_logo.svg.png";
 
                 // loop through the authors and add them to a list of authors for adding to new Article
