@@ -34,24 +34,28 @@ namespace AzureBlog
         private List<NavMenuItem> navlist = new List<NavMenuItem>(
             new[]
             {
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Contact,
-                    Label = "Basic Page",
-                    DestPage = typeof(BasicPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Edit,
-                    Label = "CommandBar Page",
-                    DestPage = typeof(CommandBarPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Favorite,
-                    Label = "Drill In Page",
-                    DestPage = typeof(DrillInPage)
-                },
+
+
+//commenting out demo buttons, but leaving incase we need to reintroduce
+//                new NavMenuItem()
+//                {
+//                   Symbol = Symbol.Contact,
+//                    Label = "Basic Page",
+//                    DestPage = typeof(BasicPage)
+//               },
+//                new NavMenuItem()
+//                {
+//                    Symbol = Symbol.Edit,
+//                    Label = "CommandBar Page",
+//                    DestPage = typeof(CommandBarPage)
+//                },
+//                new NavMenuItem()
+//                {
+//                    Symbol = Symbol.Favorite,
+//                    Label = "Drill In Page",
+//                    DestPage = typeof(DrillInPage)
+//                },
+             
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Read,
