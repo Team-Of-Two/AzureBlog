@@ -37,7 +37,12 @@ namespace AzureBlog.Views
             else if (e.Parameter is IArticle)
             {
                 IArticle Article = (IArticle) e.Parameter;
-                this.Message = Article.Content;
+
+                //this will need to be restored when I bind the control, but at the moment
+                // I want to manually pass the HTML to the WebView
+                //this.Message = Article.Content;
+                HeaderTextBlock.Text = Article.Title;
+                ArticleWebview.NavigateToString(Article.Content);
             }
             else
             {

@@ -21,11 +21,12 @@
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
-                    <Grid Background="#FF939598" Height="130" Width="190">
+                    <Grid Background="#FF939598" Height="300" Width="400" Margin="20,20,0,0">
                         <Image Source="{x:Bind ImageUriString}" Stretch="UniformToFill"/>
-                        <StackPanel Orientation="Vertical" Background="#CC000000" Height="30" VerticalAlignment="Bottom">
-                            <TextBlock Text="{x:Bind Title}" Margin="10,3,0,0" Width="186" Height="20" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
-                        
+                        <StackPanel Orientation="Vertical" Background="#CC000000" Height="120" VerticalAlignment="Bottom">
+                            <TextBlock Text="{x:Bind Title}" FontSize="25" Foreground="Aqua" Margin="20,3,0,00" Width="360" Height="80" LineHeight="30" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="textAuthors" Text="{x:Bind Authors}" FontSize="10" Foreground="LightGray" Margin="10,3,0,0" Width="360" Height="20" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="textCategories" Text="{x:Bind Categories}" FontSize="10" Foreground="LightGray" Margin="10,3,0,0" Width="360" Height="20" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
                         </StackPanel>
                     </Grid>
 
