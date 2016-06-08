@@ -23,10 +23,24 @@
                 <DataTemplate x:DataType="models:Article">
                     <Grid Background="#FF939598" Height="300" Width="400" Margin="20,20,0,0">
                         <Image Source="{x:Bind ImageUriString}" Stretch="UniformToFill"/>
-                        <StackPanel Orientation="Vertical" Background="#CC000000" Height="120" VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Vertical" Background="#CC000000" Height="160" VerticalAlignment="Bottom">
                             <TextBlock Text="{x:Bind Title}" FontSize="25" Foreground="Aqua" Margin="20,3,0,00" Width="360" Height="80" LineHeight="30" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
+                            <ListView ItemsSource="{x:Bind Categories}" Foreground="White" FontSize="10" Margin="10,3,0,0" Width="360" Height="40" SelectionMode="None" IsEnabled="False" >
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" MaxHeight="40">
+                                        </StackPanel>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" Foreground="White"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
                             <TextBlock x:Name="textAuthors" Text="{x:Bind Authors}" FontSize="10" Foreground="LightGray" Margin="10,3,0,0" Width="360" Height="20" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
-                            <TextBlock x:Name="textCategories" Text="{x:Bind Categories}" FontSize="10" Foreground="LightGray" Margin="10,3,0,0" Width="360" Height="20" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
+
+                        
                         </StackPanel>
                     </Grid>
 
