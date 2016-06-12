@@ -35,7 +35,7 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderThemeBrush}"/>
         <Setter Property="BorderThickness" Value="{ThemeResource BorderThemeThickness}"/>
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="Azure" />
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
         <Setter Property="Content" Value="&#xE700;" />
         <Setter Property="AutomationProperties.Name" Value="Menu" />

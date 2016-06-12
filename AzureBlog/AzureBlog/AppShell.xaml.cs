@@ -61,6 +61,13 @@ namespace AzureBlog
                     Symbol = Symbol.Read,
                     Label = "News Items",
                     DestPage = typeof(NewspaperPage)
+                },
+
+                new NavMenuItem()
+                {
+                    Symbol = Symbol.ContactInfo,
+                    Label = "About",
+                    DestPage = typeof(About)
                 }
 
             });

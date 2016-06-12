@@ -51,7 +51,7 @@
                 <ColumnDefinition Width="41*"/>
                 <ColumnDefinition Width="1817*"/>
             </Grid.ColumnDefinitions>
-            <WebView  x:Name="ArticleWebview" Grid.ColumnSpan="3"/>
+            <WebView  x:Name="ArticleWebview" Grid.ColumnSpan="3" NavigationStarting="ArticleWebview_NavigationStarting"/>
 
         </Grid>
 

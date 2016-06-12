@@ -55,5 +55,17 @@ namespace AzureBlog.Views
 
         public string Message { get; set; }
 
+        private async void ArticleWebview_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            //if there is a hyperlink in the page being displayed, ensure a valid URI always opens in the 
+            //default system launcher. 
+            //if (null != args.Uri && args.Uri.OriginalString == "URL OF INTEREST")
+            if (null != args.Uri)
+            {
+                args.Cancel = true;
+                await Windows.System.Launcher.LaunchUriAsync(args.Uri);
+            }
+
+        }
     }
 }
