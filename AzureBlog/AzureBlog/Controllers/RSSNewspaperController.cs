@@ -43,9 +43,9 @@ namespace AzureBlog.Controllers
                 RSSNewspaper.Articles.Add(article);
 
                 // if the new article's published date is later than the newspaper's latest, then update the newspaper's latestArticlePublishedDate
-                if (article.PublishedDateTime.DateTime > RSSNewspaper.LatestArticlePublishedDateTime)
+                if (article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDateTime)
                 {
-                    RSSNewspaper.LatestArticlePublishedDateTime = article.PublishedDateTime.DateTime;
+                    RSSNewspaper.LatestArticlePublishedDateTime = article.PublishedDateTime;
                 }
 
                 // Add any new authors to the newspaper's list of authors
@@ -141,7 +141,7 @@ namespace AzureBlog.Controllers
                 }
 
                 // construct a new Article and add it to the list of articles to be returned
-                newArticleList.Add(new Article(item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate, imageUriString));
+                newArticleList.Add(new Article(item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, imageUriString));
 
             }
             return newArticleList;

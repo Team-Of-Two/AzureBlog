@@ -21,6 +21,8 @@
                               HorizontalAlignment="{x:Bind HorizontalContentAlignment}"
                               Margin="{x:Bind Padding}"
                               Content="{x:Bind HeaderContent}"/>
+            
         </Grid>
+
     </Grid>
 </UserControl>

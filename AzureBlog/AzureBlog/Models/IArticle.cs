@@ -13,7 +13,7 @@ namespace AzureBlog.Models
         ObservableCollection<string> Authors { get; set; }
         string Content { get; set; }
         ObservableCollection<string> Categories { get; set; }
-        DateTimeOffset PublishedDateTime { get; set; }
+        DateTime PublishedDateTime { get; set; }
         string ImageUriString{ get; set; }
     }
 }
