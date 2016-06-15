@@ -37,7 +37,12 @@ namespace AzureBlog.Views
             else if (e.Parameter is IArticle)
             {
                 IArticle Article = (IArticle) e.Parameter;
-                this.Message = Article.Content;
+
+                //this will need to be restored when I bind the control, but at the moment
+                // I want to manually pass the HTML to the WebView
+                //this.Message = Article.Content;
+                HeaderTextBlock.Text = Article.Title;
+                ArticleWebview.NavigateToString(Article.Content);
             }
             else
             {
@@ -50,5 +55,17 @@ namespace AzureBlog.Views
 
         public string Message { get; set; }
 
+        private async void ArticleWebview_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            //if there is a hyperlink in the page being displayed, ensure a valid URI always opens in the 
+            //default system launcher. 
+            //if (null != args.Uri && args.Uri.OriginalString == "URL OF INTEREST")
+            if (null != args.Uri)
+            {
+                args.Cancel = true;
+                await Windows.System.Launcher.LaunchUriAsync(args.Uri);
+            }
+
+        }
     }
 }

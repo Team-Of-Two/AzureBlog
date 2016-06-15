@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctl="using:AzureBlog.Controls"
+    xmlns:art="using:AzureBlog.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -36,14 +37,22 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ctl:PageHeader Grid.ColumnSpan="2">
-            <ctl:PageHeader.HeaderContent>
-                <TextBlock x:Name="HeaderTextBlock" Text="Basic Subpage" Style="{StaticResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
-            </ctl:PageHeader.HeaderContent>
-        </ctl:PageHeader>
+
+            <ctl:PageHeader Grid.ColumnSpan="2">
+                <ctl:PageHeader.HeaderContent>
+                    <TextBlock x:Name="HeaderTextBlock" Text="Article Heading" Style="{StaticResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                </ctl:PageHeader.HeaderContent>
+            </ctl:PageHeader>
+
 
         <Grid x:Name="ContentContainer" Grid.Row="1" Margin="24,0">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Message}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="14*"/>
+                <ColumnDefinition Width="41*"/>
+                <ColumnDefinition Width="1817*"/>
+            </Grid.ColumnDefinitions>
+            <WebView  x:Name="ArticleWebview" Grid.ColumnSpan="3" NavigationStarting="ArticleWebview_NavigationStarting"/>
+
         </Grid>
 
     </Grid>
