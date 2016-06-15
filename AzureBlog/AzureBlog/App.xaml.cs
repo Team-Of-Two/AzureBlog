@@ -131,7 +131,7 @@ namespace AzureBlog
         private async void RefreshNewspaperAsync()
         {
             // retrieve newspaper from storage
-            await _currentNewspaperController.RetrieveNewspaperFromStorageAsync();
+          //  await _currentNewspaperController.RetrieveNewspaperFromStorageAsync();
 
             // update newspaper from rss feed
             await _currentNewspaperController.UpdateNewspaperAsync();

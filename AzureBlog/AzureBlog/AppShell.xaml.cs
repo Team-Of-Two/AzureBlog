@@ -58,7 +58,7 @@ namespace AzureBlog
              
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Read,
+                    Symbol = Symbol.Home,
                     Label = "News Items",
                     DestPage = typeof(NewspaperPage)
                 }
