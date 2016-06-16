@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using AzureBlog.Models;
+using AzureBlog.Helpers;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -42,7 +43,11 @@ namespace AzureBlog.Views
                 // I want to manually pass the HTML to the WebView
                 //this.Message = Article.Content;
                 HeaderTextBlock.Text = Article.Title;
-                ArticleWebview.NavigateToString(Article.Content);
+
+                string content = WebContentHelper.WrapHtml(Article.Content, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
+                ArticleWebview.NavigateToString(content);
+
+                //ArticleWebview.NavigateToString(Article.Content);
             }
             else
             {
