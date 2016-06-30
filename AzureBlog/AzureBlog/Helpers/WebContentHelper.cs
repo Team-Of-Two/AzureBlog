@@ -21,9 +21,10 @@ namespace AzureBlog.Helpers
             head.Append("<style>");
             head.Append("html { -ms-text-size-adjust:150%;}");
             head.Append(string.Format("h2{{font-size: 24px}} " +
-            "body {{background:black;color:white;font-family:'Segoe UI';font-size:18px;margin:150;padding:0;display: block;" +
+            "body {{background:azure;color:black;font-family:'Segoe UI';font-size:18px;margin:150;padding:0;display: block;" +
             "height: 100%;" +
             "right:10%;" +
+            "left:10%" +
             "overflow-y: scroll;" +
             "position: relative;" +
             "width: 80%;" +
