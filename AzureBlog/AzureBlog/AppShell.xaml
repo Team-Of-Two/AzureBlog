@@ -106,21 +106,24 @@
                                Grid.ColumnSpan="3"
                                Height="1"
                                Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                               Margin="16,0,16,6"/>
+                               Margin="16,0,16,6"
+                               Visibility="Collapsed"/>
                     <Button x:Name="FeedbackNavPaneButton"
                             Grid.Row="2"
                             Grid.Column="1"
                             Style="{StaticResource SplitViewPaneButtonStyle}"
                             Content="&#xE76E;"
                             AutomationProperties.Name="Feedback"
-                            ToolTipService.ToolTip="Feedback"/>
+                            ToolTipService.ToolTip="Feedback"
+                            Visibility="Collapsed"/>
                     <Button x:Name="SettingsNavPaneButton"
                             Grid.Row="2"
                             Grid.Column="2"
                             Style="{StaticResource SplitViewPaneButtonStyle}"
                             Content="&#xE713;"
                             AutomationProperties.Name="Settings"
-                            ToolTipService.ToolTip="Settings"/>
+                            ToolTipService.ToolTip="Settings"
+                            Visibility="Collapsed"/>
                 </Grid>
             </SplitView.Pane>
 

@@ -67,6 +67,9 @@ namespace AzureBlog
                 titleBar.ButtonBackgroundColor = titleBarColor;
             }
 
+            // retrieve the newspaper contents from the disk and get the latest articles from the web
+            this.RefreshNewspaperAsync();
+
             AppShell shell = Window.Current.Content as AppShell;
 
             // Do not repeat app initialization when the Window already has content,
@@ -80,8 +83,6 @@ namespace AzureBlog
                 shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
 
                 shell.AppFrame.NavigationFailed += OnNavigationFailed;
-
-                this.RefreshNewspaperAsync();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

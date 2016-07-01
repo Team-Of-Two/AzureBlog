@@ -282,13 +282,13 @@
                                                          Duration="0"
                                                          To="1"/>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemColorHighlightColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Stroke">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlForegroundAccentBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemColorHighlightColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlForegroundAccentBrush}" />
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemColorHighlightTextColor}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                     </Storyboard>
@@ -302,7 +302,7 @@
                                         <DoubleAnimation Storyboard.TargetName="SelectedPipe"
                                                          Storyboard.TargetProperty="Opacity"
                                                          Duration="0"
-                                                         To="1"/>
+                                                         To="0"/>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightListLowBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
@@ -374,7 +374,7 @@
                                    Opacity="0"
                                    Width="4"
                                    Height="24"
-                                   Fill="{ThemeResource SystemControlForegroundAccentBrush}"
+                                   Fill="{ThemeResource SystemColorHighlightColor}"
                                    Margin="{TemplateBinding Padding}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"/>
