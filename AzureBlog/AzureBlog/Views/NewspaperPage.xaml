@@ -16,44 +16,44 @@
             IsSwipeEnabled="False"
             CanDragItems="False"
             SelectionMode="Single" RequestedTheme="Light"
-                  ItemsSource="{x:Bind _currentController.RSSNewspaper.Articles}">
+            ItemsSource="{x:Bind _currentController.RSSNewspaper.Articles}">
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
                     <Grid Background="#FF939598" Height="350" Width="400" Margin="20,20,0,0">
                         <Image Source="{x:Bind ImageUriString}" Stretch="UniformToFill"/>
-                        <StackPanel Orientation="Vertical" Background="#CC000000" Height="180" VerticalAlignment="Bottom">
-                            <TextBlock Text="{x:Bind Title}" FontSize="25" Foreground="Aqua" Margin="20,3,0,00" Width="360" Height="80" LineHeight="30" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
-                            <ListView x:Name="lvCategories" ItemsSource="{x:Bind Categories}" Height="40" SelectionMode="None" IsEnabled="False" >
+                        <StackPanel Orientation="Vertical" Background="#CC000000" Margin="3,0,3,4" Height="130" VerticalAlignment="Bottom">
+                            <TextBlock Text="{x:Bind Title}" FontSize="22" Foreground="Aqua" Margin="10,4,10,0" Width="360" Height="60" LineHeight="0" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
+                            <TextBlock Text="{x:Bind PublishedDateTime}" Foreground="LightGray" Margin="10,4,10,0"/>
+
+                            <ListView x:Name="lvCategories" ItemsSource="{x:Bind Categories}" Margin="0,0,0,0" Height="20"  SelectionMode="None" IsEnabled="False" VerticalAlignment="Top" VerticalContentAlignment="Top" >
                                 <ListView.ItemsPanel>
+                                    
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" MaxHeight="40">
+                                        <StackPanel x:Name="spCategories" Orientation="Horizontal" Margin="0,0,0,0" Padding="0" VerticalAlignment="Top" MaxHeight="20" UseLayoutRounding="True">
                                         </StackPanel>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" Foreground="White" FontSize="10" TextTrimming="WordEllipsis"/>
+                                        <TextBlock Text="{Binding}" Height="40" VerticalAlignment="Top" Margin="0,0,0,0" Foreground="White" FontSize="12" TextTrimming="WordEllipsis"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
 
-                            <ListView x:Name="lvAuthors" ItemsSource="{x:Bind Authors}" VerticalAlignment="Top" Margin="0" Height="40" SelectionMode="None" IsEnabled="False" >
+                            <ListView x:Name="lvAuthors" ItemsSource="{x:Bind Authors}" VerticalAlignment="Top" Margin="0" Height="20" SelectionMode="None" IsEnabled="False" >
                                 <ListView.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal" MaxHeight="40">
+                                        <StackPanel Orientation="Horizontal" MaxHeight="20">
                                         </StackPanel>
                                     </ItemsPanelTemplate>
                                 </ListView.ItemsPanel>
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding}" Foreground="White" FontSize="10" TextTrimming="WordEllipsis"/>
+                                        <TextBlock Text="{Binding}" Height="40" Margin="0,0,0,0" Foreground="White" FontSize="12" TextTrimming="WordEllipsis"/>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
-                            <TextBlock Text="{x:Bind PublishedDateTime}" Foreground="LightGray">
-                                
-                            </TextBlock>
 
                         </StackPanel>
                     </Grid>
