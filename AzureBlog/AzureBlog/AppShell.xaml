@@ -94,7 +94,7 @@
                     <controls:NavMenuListView x:Name="NavMenuList"
                                           Grid.ColumnSpan="3"
                                           TabIndex="3"
-                                          Margin="0,52,0,0"
+                                          Margin="0,48,0,0"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
@@ -130,7 +130,7 @@
             <!-- OnNavigatingToPage we synchronize the selected item in the nav menu with the current page.
                  OnNavigatedToPage we move keyboard focus to the first item on the page after it's loaded and update the Back button. -->
             <Frame x:Name="frame"
-                   Margin="0,4,0,0"
+                   Margin="0,0,0,0"
                    Navigating="OnNavigatingToPage"
                    Navigated="OnNavigatedToPage">
                 <Frame.ContentTransitions>
@@ -148,7 +148,7 @@
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"
                       TabIndex="1"
-                      Margin="0,4,0,0"
+                      Margin="0,0,0,0"
                       Style="{StaticResource SplitViewTogglePaneButtonStyle}"
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       Unchecked="TogglePaneButton_Unchecked"
