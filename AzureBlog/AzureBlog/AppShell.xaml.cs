@@ -59,7 +59,7 @@ namespace AzureBlog
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Home,
-                    Label = "News Items",
+                    Label = "News Articles",
                     DestPage = typeof(NewspaperPage)
                 },
 
@@ -263,6 +263,14 @@ namespace AzureBlog
                 NavMenuList.SetSelectedItem(container);
                 if (container != null) container.IsTabStop = true;
             }
+            // if the page being navigated to is the NewspaperPage (at index 0 in the NavMenuList), then
+            // set the selected index in the NavMenuList to the be NespaperPage item (which is at index 0).
+            // This sets the selected item in the NavMenuList correctly when the app first loads.
+            else if (e.NavigationMode == NavigationMode.New && e.SourcePageType == typeof(NewspaperPage))
+            {
+                this.NavMenuList.SelectedIndex = 0;
+            }
+
         }
 
         private void OnNavigatedToPage(object sender, NavigationEventArgs e)

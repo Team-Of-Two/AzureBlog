@@ -62,26 +62,31 @@ namespace AzureBlog
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             if (titleBar != null)
             {
-                Color titleBarColor = (Color)App.Current.Resources["SystemChromeMediumColor"];
+                Color titleBarColor = (Color)App.Current.Resources["ThemeColor"];
                 titleBar.BackgroundColor = titleBarColor;
                 titleBar.ButtonBackgroundColor = titleBarColor;
+                titleBar.InactiveBackgroundColor = titleBarColor;
+                titleBar.ButtonInactiveBackgroundColor = titleBarColor;
+                titleBar.InactiveForegroundColor = Colors.Gray;
+                titleBar.ButtonInactiveForegroundColor = Colors.Gray;
             }
 
-            AppShell shell = Window.Current.Content as AppShell;
+            // retrieve the newspaper contents from the disk and get the latest articles from the web
+            this.RefreshNewspaperAsync();
 
+            AppShell shell = Window.Current.Content as AppShell;
+            
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
             if (shell == null)
             {
                 // Create a AppShell to act as the navigation context and navigate to the first page
                 shell = new AppShell();
-
+                
                 // Set the default language
                 shell.Language = Windows.Globalization.ApplicationLanguages.Languages[0];
 
                 shell.AppFrame.NavigationFailed += OnNavigationFailed;
-
-                this.RefreshNewspaperAsync();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

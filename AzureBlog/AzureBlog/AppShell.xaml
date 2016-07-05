@@ -94,7 +94,7 @@
                     <controls:NavMenuListView x:Name="NavMenuList"
                                           Grid.ColumnSpan="3"
                                           TabIndex="3"
-                                          Margin="0,52,0,0"
+                                          Margin="0,48,0,0"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
@@ -106,28 +106,31 @@
                                Grid.ColumnSpan="3"
                                Height="1"
                                Fill="{ThemeResource SystemControlForegroundBaseLowBrush}"
-                               Margin="16,0,16,6"/>
+                               Margin="16,0,16,6"
+                               Visibility="Collapsed"/>
                     <Button x:Name="FeedbackNavPaneButton"
                             Grid.Row="2"
                             Grid.Column="1"
                             Style="{StaticResource SplitViewPaneButtonStyle}"
                             Content="&#xE76E;"
                             AutomationProperties.Name="Feedback"
-                            ToolTipService.ToolTip="Feedback"/>
+                            ToolTipService.ToolTip="Feedback"
+                            Visibility="Collapsed"/>
                     <Button x:Name="SettingsNavPaneButton"
                             Grid.Row="2"
                             Grid.Column="2"
                             Style="{StaticResource SplitViewPaneButtonStyle}"
                             Content="&#xE713;"
                             AutomationProperties.Name="Settings"
-                            ToolTipService.ToolTip="Settings"/>
+                            ToolTipService.ToolTip="Settings"
+                            Visibility="Collapsed"/>
                 </Grid>
             </SplitView.Pane>
 
             <!-- OnNavigatingToPage we synchronize the selected item in the nav menu with the current page.
                  OnNavigatedToPage we move keyboard focus to the first item on the page after it's loaded and update the Back button. -->
             <Frame x:Name="frame"
-                   Margin="0,4,0,0"
+                   Margin="0,0,0,0"
                    Navigating="OnNavigatingToPage"
                    Navigated="OnNavigatedToPage">
                 <Frame.ContentTransitions>
@@ -145,7 +148,7 @@
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"
                       TabIndex="1"
-                      Margin="0,4,0,0"
+                      Margin="0,0,0,0"
                       Style="{StaticResource SplitViewTogglePaneButtonStyle}"
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       Unchecked="TogglePaneButton_Unchecked"
