@@ -254,9 +254,7 @@
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
                                         <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
-                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
-                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemColorHighlightTextColor}" />
-                                        </ObjectAnimationUsingKeyFrames>
+                                        
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="PointerOver">
@@ -267,6 +265,9 @@
                                                          To="1"/>
                                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BorderBackground" Storyboard.TargetProperty="Fill">
                                             <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemColorHighlightTextColor}" />
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlForegroundAccentBrush}" />
                                         </ObjectAnimationUsingKeyFrames>
                                         <PointerUpThemeAnimation Storyboard.TargetName="ContentPresenter" />
                                     </Storyboard>

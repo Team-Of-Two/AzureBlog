@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView x:Name="NewspaperGridView"
             IsItemClickEnabled="True"
             ItemClick="NewspaperGridView_ItemClick"
