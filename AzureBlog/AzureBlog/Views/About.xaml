@@ -6,13 +6,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel Orientation="Vertical" Background="#222222">
+            <TextBlock Text="Azure News Reader" Margin="48,72,48,0" FontSize="22" Foreground="White"/>
+            <TextBlock Text="by Nick Ward and Simon Brown" Margin="48,24,48,0" Foreground="White"/>
+            <TextBlock x:Name="VersionTextBlock"  Text="Version x.x.x" Margin="48,0,48,0" Foreground="White"/>
+            <TextBlock Margin="48,48,48,0" Foreground="White" TextWrapping="Wrap">Thanks to Vectors Market on The Noun Project for the Cloud Document icon</TextBlock>
+            <TextBlock Margin="48,48,48,0" Foreground="White" xml:space="preserve" TextWrapping="Wrap">The MIT License (MIT)
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView VariableSizedWrapGrid.RowSpan="1">
-        <TextBlock Text="Azure News Reader"/>
-        <TextBlock Text="Nick Ward"/>
-        <TextBlock Text="Simon Brown"/>
-        </GridView>
-        
-    </Grid>
+Copyright (c) 2016 Team of Two
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
+ 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</TextBlock>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
