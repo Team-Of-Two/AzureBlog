@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,10 @@ namespace AzureBlog.Views
         public About()
         {
             this.InitializeComponent();
+            VersionTextBlock.Text = String.Concat("Version ", String.Format("{0}.{1}.{2}",
+                Package.Current.Id.Version.Major,
+                Package.Current.Id.Version.Minor,
+                Package.Current.Id.Version.Build));
         }
     }
 }
