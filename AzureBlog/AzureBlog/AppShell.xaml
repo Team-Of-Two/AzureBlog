@@ -34,7 +34,11 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid x:Name="LayoutRoot">
+    <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
         <!-- Adaptive triggers -->
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -69,9 +73,10 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-
+        <TextBlock x:Name="PageNameTextBlock" Grid.Row="0" VerticalAlignment="Center" FontSize="22" Margin="58,0,0,0" />
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
+                   Grid.Row="1"
                    OpenPaneLength="320"
                    PaneClosed="RootSplitView_PaneClosed"
                    IsTabStop="False" DisplayMode="CompactOverlay">
@@ -94,7 +99,7 @@
                     <controls:NavMenuListView x:Name="NavMenuList"
                                           Grid.ColumnSpan="3"
                                           TabIndex="3"
-                                          Margin="0,48,0,0"
+                                          Margin="0,0,0,0"
                                           Background="#222222"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
@@ -149,6 +154,7 @@
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"
                       TabIndex="1"
+                      Grid.Row="0"
                       Margin="0,0,0,0"
                       Style="{StaticResource SplitViewTogglePaneButtonStyle}"
                       IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"

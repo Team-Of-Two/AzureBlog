@@ -53,9 +53,14 @@ namespace AzureBlog.Views
             ItemsWrapGrid appItemsPanel = (ItemsWrapGrid)NewspaperGridView.ItemsPanelRoot;
 
             // set up the ideal width and margins for each article box
-            double optimizedWidth = 350.0;
+            double optimizedWidth = 269.0;
             double margin = 15.0;
 
+            if (newwidth > 700) // if a larger window, then increase the optimzed with to 350
+            {
+                optimizedWidth = 350.0;
+            }
+            
             // if app window is less than the minimum size for the grid items, don't resize them; simply return
             if (e.NewSize.Width < (optimizedWidth + margin)) 
             {
@@ -67,6 +72,7 @@ namespace AzureBlog.Views
 
             // set the item width within the gridview to be the required number to meet the desired number of columns
             appItemsPanel.ItemWidth = (e.NewSize.Width - margin) / (double)numberColumns;
+            appItemsPanel.ItemHeight = 340;
         }
     }
 }

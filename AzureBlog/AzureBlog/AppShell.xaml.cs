@@ -271,6 +271,10 @@ namespace AzureBlog
                 this.NavMenuList.SelectedIndex = 0;
             }
 
+            // set the page name title for the currently selected nav item
+            var selectedNavMenuItem = this.NavMenuList.SelectedItem as NavMenuItem;
+            PageNameTextBlock.Text = selectedNavMenuItem.Label;
+
         }
 
         private void OnNavigatedToPage(object sender, NavigationEventArgs e)
