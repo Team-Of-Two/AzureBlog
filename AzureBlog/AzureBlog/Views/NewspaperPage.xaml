@@ -9,7 +9,6 @@
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
-
         <GridView x:Name="NewspaperGridView"
             IsItemClickEnabled="True"
             ItemClick="NewspaperGridView_ItemClick"
@@ -30,11 +29,8 @@
                         </StackPanel>
                     </Grid>
 
-                </DataTemplate>  
+                </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-
     </Grid>
-
-
 </Page>
