@@ -40,8 +40,33 @@ namespace AzureBlog.Views
                 new Windows.UI.Xaml.Media.Animation.DrillInNavigationTransitionInfo());
         }
 
+        private void ResizeNewspaperGridView()
+        {
+            
+        }
 
-        
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var newwidth = e.NewSize.Width;
 
+            // get an object reference to the ItemsPanel of the NewspaperGridView that contains the articles
+            ItemsWrapGrid appItemsPanel = (ItemsWrapGrid)NewspaperGridView.ItemsPanelRoot;
+
+            // set up the ideal width and margins for each article box
+            double optimizedWidth = 350.0;
+            double margin = 15.0;
+
+            // if app window is less than the minimum size for the grid items, don't resize them; simply return
+            if (e.NewSize.Width < (optimizedWidth + margin)) 
+            {
+                return;
+            }
+
+            // calculate the number of columns to display within the grid
+            var numberColumns = (int)e.NewSize.Width / (int)optimizedWidth;
+
+            // set the item width within the gridview to be the required number to meet the desired number of columns
+            appItemsPanel.ItemWidth = (e.NewSize.Width - margin) / (double)numberColumns;
+        }
     }
 }

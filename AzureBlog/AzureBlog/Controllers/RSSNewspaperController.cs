@@ -35,12 +35,13 @@ namespace AzureBlog.Controllers
         {
             // Get a list of articles published from the newspaper's source via the editor
             ObservableCollection<Article> newArticlesList = await this.GetNewArticlesAsync();
+            var indexCount = 0;
 
             // Iterate through each of the new articles and update the newspaper accordinly
             foreach (var article in newArticlesList)
             {
-                // add the article to the newspaper
-                RSSNewspaper.Articles.Add(article);
+                // insert the article in to the newspaper's article list in the index to which it belongs (in date retrieved order)
+                RSSNewspaper.Articles.Insert(indexCount++, article);
 
                 // if the new article's published date is later than the newspaper's latest, then update the newspaper's latestArticlePublishedDate
                 if (article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDateTime)
