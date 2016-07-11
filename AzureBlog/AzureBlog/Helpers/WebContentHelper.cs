@@ -17,6 +17,8 @@ namespace AzureBlog.Helpers
 
 
             Color backgroundColour = (Color)App.Current.Resources["ThemeColor"];
+            backgroundColour = Colors.Black;
+
             var head = new StringBuilder();
             head.Append("<head>");
 
@@ -27,14 +29,15 @@ namespace AzureBlog.Helpers
                               //head.Append("<meta name=\"viewport\" content=\"width=720px\">");
             head.Append("<style>");
             head.Append("html { -ms-text-size-adjust:150%;}");
-            head.Append(string.Format("h2{{font-size: 24px}} " +
-            "body {{background:"+ backgroundColour.R +";color:black;font-family:'Segoe UI';font-size:18px;margin:150;padding:0;display: block;" +
+            head.Append(string.Format("h2{{font-size: 24px;position: static;}} " +
+                "h3{{font-size: 18px;position: static; color:purple;}} " +
+            "body {{background:black;color:white;font-family:'Segoe UI';font-size:18px;margin:0;padding:0;display: block;" +
             "height: 100%;" +
-            "right:10%;" +
-            "left:10%" +
+            "right:0px;" +
+            "left:0px" +
             "overflow-y: scroll;" +
-            "position: relative;" +
-            "width: 80%;" +
+            "position: static;" +
+            "width: 100%;" +
             "z-index: 0;}}" +
             "article{{column-fill: auto;column-gap: 80px;column-width:80%; column-height:100%; height:630px;" +
             "}}" +
@@ -77,14 +80,14 @@ namespace AzureBlog.Helpers
             html.Append("</h1>");
 
             //add authors as H2
-            html.Append("<h2>");
+            html.Append("<h3>");
             html.Append(collectionToString(authors));
-            html.Append("</h2>");
+            html.Append("</h3>");
 
             //add categories as H2
-            html.Append("<h2>");
+            html.Append("<h3>");
             html.Append(collectionToString(categories));
-            html.Append("</h2>");
+            html.Append("</h3>");
 
             html.Append(HtmlHeader(viewportWidth, height));
             html.Append("<body><article class=\"content\">");
