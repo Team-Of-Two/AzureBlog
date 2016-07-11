@@ -42,9 +42,14 @@ namespace AzureBlog.Views
                 //this will need to be restored when I bind the control, but at the moment
                 // I want to manually pass the HTML to the WebView
                 //this.Message = Article.Content;
-                HeaderTextBlock.Text = Article.Title;
 
-                string content = WebContentHelper.WrapHtml(Article.Content, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
+                HeaderTextBlock.Text = "";
+
+                //string content = WebContentHelper.WrapHtml(Article.Content, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
+
+                string content = WebContentHelper.formatArticle(Article.Title, Article.Content, Article.Authors, Article.Categories, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
+                
+
                 ArticleWebview.NavigateToString(content);
 
                 //ArticleWebview.NavigateToString(Article.Content);
