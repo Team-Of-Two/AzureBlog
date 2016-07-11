@@ -52,6 +52,9 @@ namespace AzureBlog.Views
             // get an object reference to the ItemsPanel of the NewspaperGridView that contains the articles
             ItemsWrapGrid appItemsPanel = (ItemsWrapGrid)NewspaperGridView.ItemsPanelRoot;
 
+
+            //new Windows.UI.Xaml.Media.Animation.RepositionThemeAnimation();
+
             // set up the ideal width and margins for each article box
             double optimizedWidth = 269.0;
             double margin = 15.0;
@@ -73,6 +76,8 @@ namespace AzureBlog.Views
             // set the item width within the gridview to be the required number to meet the desired number of columns
             appItemsPanel.ItemWidth = (e.NewSize.Width - margin) / (double)numberColumns;
             appItemsPanel.ItemHeight = 340;
+            
+            
         }
     }
 }
