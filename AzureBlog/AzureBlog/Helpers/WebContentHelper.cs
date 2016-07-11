@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
-
+using System.Collections.ObjectModel;
 namespace AzureBlog.Helpers
 {
     class WebContentHelper
@@ -28,10 +28,14 @@ namespace AzureBlog.Helpers
                 "</script>"); //horizontal scrolling
                               //head.Append("<meta name=\"viewport\" content=\"width=720px\">");
             head.Append("<style>");
-            head.Append("html { -ms-text-size-adjust:150%;}");
-            head.Append(string.Format("h2{{font-size: 24px;position: static;}} " +
+            head.Append("html { -ms-text-size-adjust:100%;}");
+            head.Append(string.Format(
+
+                "h1{{font-size: 22px;position: static; color:Azure;}} " +
+                "h2{{font-size: 20px;position: static;}} " +
                 "h3{{font-size: 18px;position: static; color:purple;}} " +
-            "body {{background:black;color:white;font-family:'Segoe UI';font-size:18px;margin:0;padding:0;display: block;" +
+                "h4{{font-size: 15px;position: static; color:gray;}} " +
+            "body {{background:black;color:white;font-family:'Segoe UI';font-size:16px;margin:0;padding:0;display: block;" +
             "height: 100%;" +
             "right:0px;" +
             "left:0px" +
@@ -71,7 +75,7 @@ namespace AzureBlog.Helpers
             return returnValue;
         }
 
-        public static string formatArticle(string articleHeading, string htmlBody , System.Collections.ObjectModel.ObservableCollection<string> authors, System.Collections.ObjectModel.ObservableCollection<string> categories,  double viewportWidth, double height)
+        public static string formatArticle(string articleHeading, string htmlBody , ObservableCollection<string> authors, ObservableCollection<string> categories, DateTime articleDatetime, double viewportWidth, double height)
         {
             var html = new StringBuilder();
             html.Append("<html>");
@@ -83,6 +87,11 @@ namespace AzureBlog.Helpers
             html.Append("<h3>");
             html.Append(collectionToString(authors));
             html.Append("</h3>");
+
+            //add authors as H4
+            html.Append("<h4>");
+            html.Append(string.Format("Published - {0}", articleDatetime));
+            html.Append("</h4>");
 
             //add categories as H2
             html.Append("<h3>");

@@ -47,7 +47,7 @@ namespace AzureBlog.Views
 
                 //string content = WebContentHelper.WrapHtml(Article.Content, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
 
-                string content = WebContentHelper.formatArticle(Article.Title, Article.Content, Article.Authors, Article.Categories, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
+                string content = WebContentHelper.formatArticle(Article.Title, Article.Content, Article.Authors, Article.Categories, Article.PublishedDateTime, ArticleWebview.ActualWidth, ArticleWebview.ActualHeight);
                 
 
                 ArticleWebview.NavigateToString(content);
