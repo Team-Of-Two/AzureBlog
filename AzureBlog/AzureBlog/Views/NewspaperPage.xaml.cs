@@ -79,5 +79,19 @@ namespace AzureBlog.Views
             
             
         }
+
+        private void RefreshAppBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.UpdateNewspaperAsync();
+        }
+
+        private async void UpdateNewspaperAsync()
+        {
+            // update newspaper from rss feed
+            await _currentController.UpdateNewspaperAsync();
+
+            // save newspaper to storage
+            await _currentController.SendNewspaperToStorageAsync();
+        }
     }
 }

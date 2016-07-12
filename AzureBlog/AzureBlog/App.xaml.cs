@@ -38,6 +38,12 @@ namespace AzureBlog
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += OnResuming;
+        }
+
+        private void OnResuming(object sender, object e)
+        {
+            this.UpdateNewspaperAsync();
         }
 
         /// <summary>
@@ -72,7 +78,7 @@ namespace AzureBlog
             }
 
             // retrieve the newspaper contents from the disk and get the latest articles from the web
-            this.RefreshNewspaperAsync();
+            this.RetrieveAndUpdateNewspaperAsync();
 
             AppShell shell = Window.Current.Content as AppShell;
             
@@ -133,16 +139,39 @@ namespace AzureBlog
             deferral.Complete();
         }
 
-        private async void RefreshNewspaperAsync()
+        private async void RetrieveAndUpdateNewspaperAsync()
         {
-            // retrieve newspaper from storage
-            //await _currentNewspaperController.RetrieveNewspaperFromStorageAsync();
+            try
+            {
+                // retrieve newspaper from storage
+                await _currentNewspaperController.RetrieveNewspaperFromStorageAsync();
 
-            // update newspaper from rss feed
-            await _currentNewspaperController.UpdateNewspaperAsync();
+                // update newspaper from rss feed
+                await _currentNewspaperController.UpdateNewspaperAsync();
 
-            // save newspaper to storage
-            await _currentNewspaperController.SendNewspaperToStorageAsync();
+                // save newspaper to storage
+                await _currentNewspaperController.SendNewspaperToStorageAsync();
+            } catch (Exception e)
+            {
+                // couldn't retrieve and update the newspaper
+                return;
+            }
+        }
+
+        private async void UpdateNewspaperAsync()
+        {
+            try
+            {
+                // update newspaper from rss feed
+                await _currentNewspaperController.UpdateNewspaperAsync();
+
+                // save newspaper to storage
+                await _currentNewspaperController.SendNewspaperToStorageAsync();
+            } catch (Exception e)
+            {
+                // couldn't update the newspaper
+                return;
+            }
         }
 
     }
