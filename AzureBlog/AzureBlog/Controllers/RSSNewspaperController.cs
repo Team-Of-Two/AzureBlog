@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace AzureBlog.Controllers
 {
@@ -99,6 +100,7 @@ namespace AzureBlog.Controllers
             string imageUriString;
             int uriIndex;
             int uriLength;
+            BitmapImage heroImage;
             
             // Retrieve the latest articles from the RSS feed
             try
@@ -141,8 +143,11 @@ namespace AzureBlog.Controllers
                     imageUriString = item.Summary.Text.Substring(uriIndex, uriLength);
                 }
 
+                // create a new bitmap image based on the uri (either default or from network)
+                heroImage = new BitmapImage(new Uri(imageUriString));
+
                 // construct a new Article and add it to the list of articles to be returned
-                newArticleList.Add(new Article(item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, imageUriString));
+                newArticleList.Add(new Article(item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, heroImage));
 
             }
             return newArticleList;
