@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace AzureBlog.Models
 {
@@ -14,6 +15,6 @@ namespace AzureBlog.Models
         string Content { get; set; }
         ObservableCollection<string> Categories { get; set; }
         DateTime PublishedDateTime { get; set; }
-        string ImageUriString{ get; set; }
+        BitmapImage HeroImage { get; set; }
     }
 }

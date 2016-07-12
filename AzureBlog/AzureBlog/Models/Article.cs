@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace AzureBlog.Models
 {
@@ -21,7 +22,7 @@ namespace AzureBlog.Models
                 return PublishedDateTime.ToString("f");
             }
         }
-        public string ImageUriString { get; set; }
+        public BitmapImage HeroImage { get; set; }
         public string AuthorsString {
             get {
                 var returnAuthorsString = "";
@@ -55,14 +56,14 @@ namespace AzureBlog.Models
             }
         }
 
-        public Article(string newTitle, ObservableCollection<String> newAuthors, string newContent, ObservableCollection<string> newCategories, DateTime publishedDateTime, string newImageUriString)
+        public Article(string newTitle, ObservableCollection<String> newAuthors, string newContent, ObservableCollection<string> newCategories, DateTime publishedDateTime, BitmapImage heroImage)
         {
             Title = newTitle;
             Authors = newAuthors;
             Content = newContent;
             Categories = newCategories;
             PublishedDateTime = publishedDateTime;
-            ImageUriString = newImageUriString;
+            HeroImage = heroImage;
         }
 
         public Article()
