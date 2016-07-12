@@ -8,6 +8,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
+    <Page.BottomAppBar>
+        <AppBar IsOpen="False" IsSticky="True">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <AppBarButton Name="RefreshAppBarButton" Icon="Refresh" Label="Refresh" Click="RefreshAppBarButton_Click"/>
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <GridView x:Name="NewspaperGridView"
             IsItemClickEnabled="True"
@@ -33,4 +41,5 @@
             </GridView.ItemTemplate>
         </GridView>
     </Grid>
+
 </Page>
