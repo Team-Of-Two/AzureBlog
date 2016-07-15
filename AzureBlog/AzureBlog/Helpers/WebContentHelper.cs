@@ -19,6 +19,8 @@ namespace AzureBlog.Helpers
             Color backgroundColour = (Color)App.Current.Resources["ThemeColor"];
             backgroundColour = Colors.Black;
 
+            
+
             var head = new StringBuilder();
             head.Append("<head>");
 
@@ -35,6 +37,10 @@ namespace AzureBlog.Helpers
                 "h2{{font-size: 20px;position: static;}} " +
                 "h3{{font-size: 18px;position: static; color:purple;}} " +
                 "h4{{font-size: 15px;position: static; color:gray;}} " +
+                "a:link{{color:darkcyan;text-decoration:none;}} " +
+                "a:visited{{color:darkcyan;text-decoration:none;}} " +
+                "a:hover{{text-decoration:underline;}}" +
+
             "body {{background:black;color:white;font-family:'Segoe UI';font-size:16px;margin:0;padding:0;display: block;" +
             "height: 100%;" +
             "right:0px;" +
