@@ -87,6 +87,7 @@ namespace AzureBlog.Views
 
         private async void UpdateNewspaperAsync()
         {
+
             // update newspaper from rss feed
             await _currentController.UpdateNewspaperAsync();
 

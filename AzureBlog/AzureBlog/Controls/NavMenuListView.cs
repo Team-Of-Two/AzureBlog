@@ -95,7 +95,11 @@ namespace AzureBlog.Controls
                 var lvi = (ListViewItem)this.ContainerFromIndex(i);
                 if (i != index)
                 {
-                    lvi.IsSelected = false;
+                    if (lvi != null)
+                    {
+                        lvi.IsSelected = false;
+                    }
+
                 }
                 else if (i == index)
                 {
