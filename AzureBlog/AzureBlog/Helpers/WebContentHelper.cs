@@ -33,13 +33,14 @@ namespace AzureBlog.Helpers
             head.Append("html { -ms-text-size-adjust:100%;}");
             head.Append(string.Format(
 
-                "h1{{font-size: 22px;position: static; color:Azure;}} " +
-                "h2{{font-size: 20px;position: static;}} " +
-                "h3{{font-size: 18px;position: static; color:purple;}} " +
-                "h4{{font-size: 15px;position: static; color:gray;}} " +
-                "a:link{{color:darkcyan;text-decoration:none;}} " +
-                "a:visited{{color:darkcyan;text-decoration:none;}} " +
-                "a:hover{{text-decoration:underline;}}" +
+                "h1{{font-size: 22px;position: static; color:Azure;margin-bottom: 0px}} " +
+                "h2{{font-size: 20px;position: static}} " +
+                "h3{{font-size: 18px;position: static; color:purple}} " +
+                "h4{{font-size: 14px;position: static; color:gray;margin: 0px 0px 0px 0px;font-style: normal;}} " +
+                "h5{{font-size: 16px;position: static; color:green;margin-top: 10px;margin-bottom: 10px}} " +
+                "a:link{{color:darkcyan;text-decoration:none}} " +
+                "a:visited{{color:darkcyan;text-decoration:none}} " +
+                "a:hover{{text-decoration:underline}}" +
 
             "body {{background:black;color:white;font-family:'Segoe UI';font-size:16px;margin:0;padding:0;display: block;" +
             "height: 100%;" +
@@ -89,20 +90,21 @@ namespace AzureBlog.Helpers
             html.Append(articleHeading);
             html.Append("</h1>");
 
-            //add authors as H2
-            html.Append("<h3>");
-            html.Append(collectionToString(authors));
-            html.Append("</h3>");
-
             //add authors as H4
             html.Append("<h4>");
             html.Append(string.Format("Published - {0}", articleDatetime));
             html.Append("</h4>");
 
+            //add authors as H2
+            html.Append("<h5>");
+            html.Append(collectionToString(authors));
+            html.Append("</h5>");
+
+
             //add categories as H2
-            html.Append("<h3>");
+            html.Append("<h5>");
             html.Append(collectionToString(categories));
-            html.Append("</h3>");
+            html.Append("</h5>");
 
             html.Append(HtmlHeader(viewportWidth, height));
             html.Append("<body><article class=\"content\">");
