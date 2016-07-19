@@ -74,6 +74,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <EnableGatekeeperAnalysis>true</EnableGatekeeperAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -148,9 +149,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\AzureLogo.jpg" />
-    <Content Include="Assets\bluesky.jpg" />
     <Content Include="Assets\AppLogo.png" />
+    <Content Include="Assets\noun_534057.png" />
+    <Content Include="Assets\noun_534057.svg" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\Square310x310Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-200.png" />
+    <Content Include="Controls\Square44x44Logo.scale-200.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

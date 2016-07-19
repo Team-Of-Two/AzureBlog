@@ -12,7 +12,7 @@
             <TextBlock Text="Azure News Reader" Margin="48,48,48,0" FontSize="22"/>
             <TextBlock Text="by Nick Ward and Simon Brown" Margin="48,24,48,0"/>
             <TextBlock x:Name="VersionTextBlock"  Text="Version x.x.x" Margin="48,0,48,0"/>
-            <TextBlock Margin="48,48,48,0" TextWrapping="Wrap">Thanks to Vectors Market on The Noun Project for the Cloud Document icon</TextBlock>
+            <TextBlock Margin="48,48,48,0" TextWrapping="Wrap">We supported Alan Davison at The Noun Project by purchasing the storm cloud icon</TextBlock>
             <TextBlock Margin="48,48,48,0" xml:space="preserve" TextWrapping="Wrap">The MIT License (MIT)
 
 Copyright (c) 2016 Team of Two
