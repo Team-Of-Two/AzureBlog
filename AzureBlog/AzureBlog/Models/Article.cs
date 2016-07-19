@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
+using System.Xml.Serialization;
 
 namespace AzureBlog.Models
 {
@@ -22,6 +23,7 @@ namespace AzureBlog.Models
                 return PublishedDateTime.ToString("f");
             }
         }
+        [XmlIgnore]
         public BitmapImage HeroImage { get; set; }
         public string AuthorsString {
             get {
