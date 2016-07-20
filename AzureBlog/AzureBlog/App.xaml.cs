@@ -169,7 +169,7 @@ namespace AzureBlog
                 await _currentNewspaperController.SendNewspaperToStorageAsync();
             } catch (Exception e)
             {
-                // couldn't update the newspaper
+                // couldn't update the newspaper//
                 return;
             }
         }
