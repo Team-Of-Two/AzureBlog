@@ -1,2 +1,2 @@
 # AzureBlog
-Nick and Simon's Hackathon project 2016
+Nick and Simon's first UWP app 
