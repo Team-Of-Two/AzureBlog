@@ -18,7 +18,6 @@ namespace AzureBlog.Models
                 return PublishedDateTime.ToString("f");
             }
         }
-        public string ImageUriString { get; set; }
         public string AuthorsString {
             get {
                 var returnAuthorsString = "";
@@ -51,8 +50,11 @@ namespace AzureBlog.Models
                 return returnCategoriesString;
             }
         }
-
-        public Article(Guid id, string newTitle, ObservableCollection<String> newAuthors, string newContent, ObservableCollection<string> newCategories, DateTime publishedDateTime, string newImageUriString)
+        public string OriginalArticleUriString { get; set; }
+        public string ImageUriString { get; set; }
+        public string VideoUriString { get; set; }
+        
+        public Article(Guid id, string newTitle, ObservableCollection<String> newAuthors, string newContent, ObservableCollection<string> newCategories, DateTime publishedDateTime, string originalArticleUriString, string newImageUriString)
         {
             Id = id;
             Title = newTitle;
@@ -61,6 +63,7 @@ namespace AzureBlog.Models
             Categories = newCategories;
             PublishedDateTime = publishedDateTime;
             ImageUriString = newImageUriString;
+            OriginalArticleUriString = originalArticleUriString;
         }
 
         public Article()
