@@ -1,13 +1,10 @@
 ﻿using AzureBlog.Models;
 using Windows.Web.Syndication;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.Web.Http;
 
 namespace AzureBlog.Controllers
