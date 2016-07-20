@@ -11,6 +11,7 @@ namespace AzureBlog.Models
 {
     public class Article : IArticle
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public ObservableCollection<string> Authors { get; set; }
         public string Content { get; set; }
@@ -23,8 +24,7 @@ namespace AzureBlog.Models
                 return PublishedDateTime.ToString("f");
             }
         }
-        [XmlIgnore]
-        public BitmapImage HeroImage { get; set; }
+        public string ImageUriString { get; set; }
         public string AuthorsString {
             get {
                 var returnAuthorsString = "";
@@ -58,14 +58,15 @@ namespace AzureBlog.Models
             }
         }
 
-        public Article(string newTitle, ObservableCollection<String> newAuthors, string newContent, ObservableCollection<string> newCategories, DateTime publishedDateTime, BitmapImage heroImage)
+        public Article(Guid id, string newTitle, ObservableCollection<String> newAuthors, string newContent, ObservableCollection<string> newCategories, DateTime publishedDateTime, string newImageUriString)
         {
+            Id = id;
             Title = newTitle;
             Authors = newAuthors;
             Content = newContent;
             Categories = newCategories;
             PublishedDateTime = publishedDateTime;
-            HeroImage = heroImage;
+            ImageUriString = newImageUriString;
         }
 
         public Article()

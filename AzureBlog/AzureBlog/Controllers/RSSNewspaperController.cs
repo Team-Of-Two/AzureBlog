@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Web.Http;
 
 namespace AzureBlog.Controllers
 {
@@ -100,8 +101,12 @@ namespace AzureBlog.Controllers
             string imageUriString;
             int uriIndex;
             int uriLength;
-            BitmapImage heroImage;
-            
+            int index;
+            string heroImageFilename;
+            Guid newGuid;
+            Windows.Storage.StorageFile heroImageFile;
+            HttpClient httpClient;
+
             // Retrieve the latest articles from the RSS feed
             try
             {
@@ -115,6 +120,8 @@ namespace AzureBlog.Controllers
             // For each SyndicationItem returned from the RSS feed, construct a new Article and add to the list of articles to be returned
             foreach (Windows.Web.Syndication.SyndicationItem item in _rssFeed.Items)
             {
+                newGuid = Guid.NewGuid();
+                
                 // reset the authors and categories lists and the image uri
                 newAuthorsList = new ObservableCollection<string>();
                 newCategoriesList= new ObservableCollection<string>();
@@ -136,18 +143,37 @@ namespace AzureBlog.Controllers
                 }
 
                 // find an image Uri in the SyndicationItem's summary text and set it to the image URI
-                if (item.Summary.Text.Contains("<img ")) // if there is an img tag within the RSS article
+                if (item.Summary.Text.Contains("<img ")) // if there is an img tag within the RSS article (i.e. if the article contains an image)
                 {
+                    // get the specific URI for the image referenced within the article
                     uriIndex = item.Summary.Text.IndexOf("src=", item.Summary.Text.IndexOf("<img ")) + 5;
                     uriLength = item.Summary.Text.IndexOf('"', uriIndex) - uriIndex;
                     imageUriString = item.Summary.Text.Substring(uriIndex, uriLength);
+                    
+                    // Download and save the image in the local storage folder for offline access
+                    //   First, create a filename for the local file based on the article's Id and the extension of the image from the Uri just found
+                    index = imageUriString.LastIndexOf('.');
+                    heroImageFilename = String.Concat(newGuid.ToString(), imageUriString.Substring(index));
+
+                    //   Second, creaete the local file to write the image to
+                    heroImageFile = await Windows.Storage.ApplicationData.Current.LocalFolder.CreateFileAsync(
+                          heroImageFilename, Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+                    //   Third, download the file using HttpClient, create a buffer and write the contents of the image to the local file just created
+                    httpClient = new HttpClient();
+                    var buffer = await httpClient.GetBufferAsync(new Uri(imageUriString));
+                    await Windows.Storage.FileIO.WriteBufferAsync(heroImageFile, buffer);
+
+                    // redirect imageUriString to the local copy of the image
+                    imageUriString = new Uri(
+                        new Uri(
+                            Windows.Storage.ApplicationData.Current.LocalFolder.Path + "\\" +
+                            Windows.Storage.ApplicationData.Current.LocalFolder.Name),
+                        heroImageFilename).ToString();
                 }
 
-                // create a new bitmap image based on the uri (either default or from network)
-                heroImage = new BitmapImage(new Uri(imageUriString));
-
                 // construct a new Article and add it to the list of articles to be returned
-                newArticleList.Add(new Article(item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, heroImage));
+                newArticleList.Add(new Article(newGuid, item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, imageUriString));
 
             }
             return newArticleList;
@@ -181,11 +207,11 @@ namespace AzureBlog.Controllers
             // Create file to save newspaper; replace if exists.
             Windows.Storage.StorageFolder storageFolder =
                 Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile =
+            Windows.Storage.StorageFile newspaperFile =
                 await storageFolder.CreateFileAsync("newspaper.xml",
                     Windows.Storage.CreationCollisionOption.ReplaceExisting);
 
-            Stream stream = await sampleFile.OpenStreamForWriteAsync();
+            Stream stream = await newspaperFile.OpenStreamForWriteAsync();
             System.Xml.Serialization.XmlSerializer serializer = new System.Xml.Serialization.XmlSerializer(this.RSSNewspaper.GetType());
 
             using (System.Xml.XmlWriter writer = System.Xml.XmlWriter.Create(stream))

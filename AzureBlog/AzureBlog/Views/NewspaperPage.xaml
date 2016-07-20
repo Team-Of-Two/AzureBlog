@@ -28,7 +28,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">
                     <Grid x:Name="ArticleGrid" Background="#FF939598" Margin="15,15,0,0" Height="320">
-                        <Image Source="{x:Bind HeroImage}" Stretch="UniformToFill"/>
+                        <Image Source="{x:Bind ImageUriString}" Stretch="UniformToFill"/>
                         <StackPanel Orientation="Vertical" Background="#CC000000" Margin="3,0,3,4" Height="130" VerticalAlignment="Bottom">
                             <TextBlock Text="{x:Bind Title}" FontSize="22" Foreground="White" Margin="10,4,10,0" Height="60" LineHeight="0" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
                             <TextBlock Text="{x:Bind PublishedDateTimeString}" Foreground="LightGray" FontSize="12" Margin="10,10,10,0"/>
