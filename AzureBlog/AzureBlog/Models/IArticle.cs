@@ -11,6 +11,8 @@ namespace AzureBlog.Models
         string Content { get; set; }
         ObservableCollection<string> Categories { get; set; }
         DateTime PublishedDateTime { get; set; }
+        string OriginalArticleUriString { get; set; }
         string ImageUriString { get; set; }
+        string VideoUriString { get; set; }
     }
 }

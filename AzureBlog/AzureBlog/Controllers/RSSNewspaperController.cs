@@ -14,6 +14,7 @@ namespace AzureBlog.Controllers
         public RSSNewspaper RSSNewspaper = new RSSNewspaper();
 
         private Uri _sourceFeedUri;
+        private Uri _sourceBlogUri;
         private SyndicationClient _rssClient = new SyndicationClient();
         private SyndicationFeed _rssFeed = new SyndicationFeed();
 
@@ -23,6 +24,8 @@ namespace AzureBlog.Controllers
             try
             {
                 _sourceFeedUri = new Uri(newSourceUriString);
+                var index = newSourceUriString.LastIndexOf("feed/");
+                _sourceBlogUri = new Uri(newSourceUriString.Substring(0, index));
             }
             catch (Exception e)
             {
@@ -103,6 +106,7 @@ namespace AzureBlog.Controllers
             Guid newGuid;
             Windows.Storage.StorageFile heroImageFile;
             HttpClient httpClient;
+            string originalArticleUriString;
 
             // Retrieve the latest articles from the RSS feed
             try
@@ -119,6 +123,8 @@ namespace AzureBlog.Controllers
             {
                 newGuid = Guid.NewGuid();
                 
+                originalArticleUriString = String.Concat(_sourceBlogUri, item.Id);
+
                 // reset the authors and categories lists and the image uri
                 newAuthorsList = new ObservableCollection<string>();
                 newCategoriesList= new ObservableCollection<string>();
@@ -170,7 +176,7 @@ namespace AzureBlog.Controllers
                 }
 
                 // construct a new Article and add it to the list of articles to be returned
-                newArticleList.Add(new Article(newGuid, item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, imageUriString));
+                newArticleList.Add(new Article(newGuid, item.Title.Text, newAuthorsList, item.Summary.Text, newCategoriesList, item.PublishedDate.DateTime, originalArticleUriString, imageUriString));
 
             }
             return newArticleList;
