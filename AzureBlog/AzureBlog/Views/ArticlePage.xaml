@@ -35,6 +35,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
 
 
@@ -52,8 +53,17 @@
                 <ColumnDefinition Width="1817*"/>
             </Grid.ColumnDefinitions>
             <WebView  x:Name="ArticleWebview" Grid.ColumnSpan="3" NavigationStarting="ArticleWebview_NavigationStarting"/>
-
+      
         </Grid>
-
+        <AppBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" IsOpen="False" IsSticky="True" Height="52" Margin="0,0,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="auto">
+                <AppBarButton Name="abbShare" Label="Share" Click="abbShare_Click" >
+                    <AppBarButton.Icon>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton Name="abbOpenInBrowser" Label="Open In Browser" Click="abbOpenInBrowser_Click" Icon="World"/>
+            </StackPanel>
+        </AppBar>
     </Grid>
 </Page>

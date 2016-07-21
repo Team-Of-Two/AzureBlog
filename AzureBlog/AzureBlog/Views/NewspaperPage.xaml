@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" SizeChanged="Page_SizeChanged">
 
+    <!--
     <Page.BottomAppBar>
         <AppBar IsOpen="False" IsSticky="True">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -15,9 +16,13 @@
             </StackPanel>
         </AppBar>
     </Page.BottomAppBar>
-    
+    -->
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <GridView x:Name="NewspaperGridView"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="24"/>
+        </Grid.RowDefinitions>
+        <GridView x:Name="NewspaperGridView" Grid.Row="0"
             IsItemClickEnabled="True"
             ItemClick="NewspaperGridView_ItemClick"
             IsSwipeEnabled="False"
@@ -47,6 +52,11 @@
             </GridView.ItemContainerTransitions>
             
         </GridView>
+        <AppBar x:Name="abNewspaperControls" Grid.Row="1" VerticalAlignment="Top" IsOpen="False" IsSticky="False" Height="52" Margin="0,0,0,0" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
+                <AppBarButton Name="RefreshAppBarButton" Icon="Refresh" Label="Refresh" Click="RefreshAppBarButton_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
+            </StackPanel>
+        </AppBar>
     </Grid>
 
 </Page>

@@ -28,7 +28,7 @@ namespace AzureBlog.Views
         public NewspaperPage()
         {
             this.InitializeComponent();
-
+            
 
         }
 
