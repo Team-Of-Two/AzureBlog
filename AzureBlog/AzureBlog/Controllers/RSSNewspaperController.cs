@@ -6,81 +6,99 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
 using Windows.Web.Http;
+using System.Collections.Generic;
 
 namespace AzureBlog.Controllers
 {
     public class RSSNewspaperController
     {
         public RSSNewspaper RSSNewspaper = new RSSNewspaper();
+        private List<NewsSource> _newsSourceList = new List<NewsSource>();
 
-        private Uri _sourceFeedUri;
-        private Uri _sourceBlogUri;
-        private SyndicationClient _rssClient = new SyndicationClient();
-        private SyndicationFeed _rssFeed = new SyndicationFeed();
-
-
-        public RSSNewspaperController(string newSourceUriString)
+        public RSSNewspaperController()
         {
-            try
-            {
-                _sourceFeedUri = new Uri(newSourceUriString);
-                var index = newSourceUriString.LastIndexOf("feed/");
-                _sourceBlogUri = new Uri(newSourceUriString.Substring(0, index));
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
+            // add blog sources to the Uri lists
+
+            // add the first source: the Azure blog
+            NewsSource azureBlog = new NewsSource(
+                BlogType.AzureBlog, new Uri("https://azure.microsoft.com/en-us/blog/feed/"), new Uri("https://azure.microsoft.com/en-us/blog/"));
+            _newsSourceList.Add(azureBlog);
+
+            // add the second source: Cloud + Server blog
+            NewsSource cloudServerBlog = new NewsSource(
+                BlogType.CloudServerBlog, new Uri("https://sxp.microsoft.com/feeds/3.0/cloud"), null);
+            _newsSourceList.Add(cloudServerBlog);
         }
 
         public async Task UpdateNewspaperAsync()
         {
-            // Get a list of articles published from the newspaper's source via the editor
-            ObservableCollection<Article> newArticlesList = await this.GetNewArticlesAsync();
-            var indexCount = 0;
-
-            // Iterate through each of the new articles and update the newspaper accordinly
-            foreach (var article in newArticlesList)
+            // loop through the logic to add articles to the newspaper for each source
+            foreach(NewsSource ns in _newsSourceList)
             {
-                // insert the article in to the newspaper's article list in the index to which it belongs (in date retrieved order)
-                RSSNewspaper.Articles.Insert(indexCount++, article);
+                // Get a list of articles published from the newspaper's source via the editor
+                ObservableCollection<Article> newArticlesList = await this.GetNewArticlesAsync(ns);
 
-                // if the new article's published date is later than the newspaper's latest, then update the newspaper's latestArticlePublishedDate
-                if (article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDateTime)
+                // Iterate through each of the new articles and update the newspaper accordinly
+                var articleIndex = 0;
+                foreach (var article in newArticlesList)
                 {
-                    RSSNewspaper.LatestArticlePublishedDateTime = article.PublishedDateTime;
-                }
-
-                // Add any new authors to the newspaper's list of authors
-                foreach (var author in article.Authors)
-                {
-                    if (RSSNewspaper.Authors.FirstOrDefault(a => a.Equals(author))==null) // if the article's author doesn't exist in the newspaper's list of authors
+                    // find the index of the article with the first date older than the new article
+                    var newestArticle = RSSNewspaper.Articles.FirstOrDefault(a => a.PublishedDateTime < article.PublishedDateTime);
+                    if (newestArticle == null)
                     {
-                        RSSNewspaper.Authors.Add(author);
+                        if (RSSNewspaper.Articles.Count > 0)
+                        {
+                            articleIndex = RSSNewspaper.Articles.Count;
+                        } else
+                        {
+                            articleIndex = 0;
+                        }
+                    } else
+                    {
+                        articleIndex = RSSNewspaper.Articles.IndexOf(newestArticle);
                     }
-                }
 
-                // Add any new categories to the newspaper's list of categories
-                foreach (var category in article.Categories)
-                {
-                    if(RSSNewspaper.Categories.FirstOrDefault(c => c.Equals(category))==null) // if the article's category doesn't exist in the newspaper's list of categories
+                    // insert the article in to the newspaper's article list in the index to which it belongs (in date retrieved order)
+                    RSSNewspaper.Articles.Insert(articleIndex, article);
+
+                    // if the new article's published date is later than the newspaper's latest, then update the newspaper's latestArticlePublishedDate
+                    if (article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDateTime)
                     {
-                        RSSNewspaper.Categories.Add(category);
+                        RSSNewspaper.LatestArticlePublishedDateTime = article.PublishedDateTime;
+                    }
+
+                    // Add any new authors to the newspaper's list of authors
+                    foreach (var author in article.Authors)
+                    {
+                        if (RSSNewspaper.Authors.FirstOrDefault(a => a.Equals(author)) == null) // if the article's author doesn't exist in the newspaper's list of authors
+                        {
+                            RSSNewspaper.Authors.Add(author);
+                        }
+                    }
+
+                    // Add any new categories to the newspaper's list of categories
+                    foreach (var category in article.Categories)
+                    {
+                        if (RSSNewspaper.Categories.FirstOrDefault(c => c.Equals(category)) == null) // if the article's category doesn't exist in the newspaper's list of categories
+                        {
+                            RSSNewspaper.Categories.Add(category);
+                        }
                     }
                 }
             }
         }
 
-        public async Task<ObservableCollection<Article>> GetNewArticlesAsync()
+        public async Task<ObservableCollection<Article>> GetNewArticlesAsync(NewsSource newsSource)
         {
             // get the latest articles from the rss feed
-            ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync();
+            ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync(newsSource);
             ObservableCollection<Article> newArticlesList = new ObservableCollection<Article>();
 
-            // remove any articles that the newspaper has already has in it
-            foreach(var article in latestArticleList)
+            // add any new articles to a new article list
+            // determine if an article is new by seeing if the original article Uri string exists in the articles collection
+            foreach (var article in latestArticleList)
             {
-                if(article.PublishedDateTime > RSSNewspaper.LatestArticlePublishedDateTime)
+                if (this.RSSNewspaper.Articles.FirstOrDefault(a => a.Title == article.Title) == null)
                 {
                     newArticlesList.Add(article);
                 }
@@ -90,7 +108,7 @@ namespace AzureBlog.Controllers
             return newArticlesList;
         }
 
-        public async Task<ObservableCollection<Article>> GetLatestArticlesAsync()
+        public async Task<ObservableCollection<Article>> GetLatestArticlesAsync(NewsSource newsSource)
         {
             // set up placeholders for new articles, authors and categories to add to newspaper
             ObservableCollection<Article> newArticleList = new ObservableCollection<Article>();
@@ -98,6 +116,8 @@ namespace AzureBlog.Controllers
             ObservableCollection<string> newCategoriesList;
 
             // set up temporary working variables
+            SyndicationClient rssClient = new SyndicationClient();
+            SyndicationFeed rssFeed = new SyndicationFeed();
             string imageUriString;
             int uriIndex;
             int uriLength;
@@ -107,11 +127,11 @@ namespace AzureBlog.Controllers
             Windows.Storage.StorageFile heroImageFile;
             HttpClient httpClient;
             string originalArticleUriString;
-
+            
             // Retrieve the latest articles from the RSS feed
             try
             {
-                _rssFeed= await _rssClient.RetrieveFeedAsync(_sourceFeedUri);
+                rssFeed= await rssClient.RetrieveFeedAsync(newsSource.FeedUri);
             }
             catch (Exception e)
             {
@@ -119,12 +139,22 @@ namespace AzureBlog.Controllers
             }
 
             // For each SyndicationItem returned from the RSS feed, construct a new Article and add to the list of articles to be returned
-            foreach (Windows.Web.Syndication.SyndicationItem item in _rssFeed.Items)
+            foreach (Windows.Web.Syndication.SyndicationItem item in rssFeed.Items)
             {
                 newGuid = Guid.NewGuid();
-                
-                originalArticleUriString = String.Concat(_sourceBlogUri, item.Id);
 
+                originalArticleUriString = "";
+                switch(newsSource.BlogType)
+                {
+                    case BlogType.AzureBlog:
+                        originalArticleUriString = String.Concat(newsSource.SourceUri, item.Id);
+                        break;
+                    case BlogType.CloudServerBlog:
+                        originalArticleUriString = item.Id;
+                        break;
+                }
+                
+                
                 // reset the authors and categories lists and the image uri
                 newAuthorsList = new ObservableCollection<string>();
                 newCategoriesList= new ObservableCollection<string>();
@@ -224,21 +254,5 @@ namespace AzureBlog.Controllers
             await stream.FlushAsync();
             stream.Dispose();
         }
-    
-
-    private async Task<string> SetNewsPaperTitleAsync()
-        {
-            try
-            {
-                _rssFeed = await _rssClient.RetrieveFeedAsync(this._sourceFeedUri);
-            }
-            catch (Exception e)
-            {
-                throw (e);
-            }
-            return _rssFeed.Title.Text;
-        }
-
-
     }
 }

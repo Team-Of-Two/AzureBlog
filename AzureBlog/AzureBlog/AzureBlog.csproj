@@ -119,6 +119,7 @@
     <Compile Include="Models\INewspaper.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\IArticle.cs" />
+    <Compile Include="Models\NewsSource.cs" />
     <Compile Include="Models\RSSNewspaper.cs" />
     <Compile Include="NavMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
