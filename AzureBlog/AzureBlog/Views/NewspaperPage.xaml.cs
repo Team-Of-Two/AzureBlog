@@ -73,8 +73,16 @@ namespace AzureBlog.Views
             // calculate the number of columns to display within the grid
             var numberColumns = (int)e.NewSize.Width / (int)optimizedWidth;
 
+            if (numberColumns == 1)
+            {
+                appItemsPanel.ItemWidth = e.NewSize.Width;
+            }
+            else
+            { 
             // set the item width within the gridview to be the required number to meet the desired number of columns
             appItemsPanel.ItemWidth = (e.NewSize.Width - margin) / (double)numberColumns;
+            }
+            
             appItemsPanel.ItemHeight = 340;
             
             
