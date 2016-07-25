@@ -54,7 +54,7 @@
         </GridView>
         <AppBar x:Name="abNewspaperControls" Grid.Row="1" VerticalAlignment="Top" IsOpen="False" IsSticky="False" Height="52" Margin="0,0,0,0" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
-                <AppBarButton Name="RefreshAppBarButton" Icon="Refresh" Label="Refresh" Click="RefreshAppBarButton_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
+                <AppBarButton Name="RefreshAppBarButton" Icon="Refresh" ToolTipService.ToolTip="Refresh" Click="RefreshAppBarButton_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
             </StackPanel>
         </AppBar>
     </Grid>
