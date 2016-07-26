@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="24176TeamOfTwo.AzureNewsReader" Publisher="CN=2C9D33B2-5406-4311-A2FB-E8E72F63D906" Version="1.2.0.0" />
+  <Identity Name="24176TeamOfTwo.AzureNewsReader" Publisher="CN=2C9D33B2-5406-4311-A2FB-E8E72F63D906" Version="1.2.5.0" />
   <mp:PhoneIdentity PhoneProductId="976cbb5c-c680-4c4d-949a-05b77803af0a" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Azure News Reader</DisplayName>
+    <DisplayName>News Reader For Azure</DisplayName>
     <PublisherDisplayName>TeamOfTwo</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
