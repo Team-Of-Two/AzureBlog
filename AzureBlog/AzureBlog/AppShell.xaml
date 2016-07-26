@@ -17,7 +17,7 @@
          navigation buttons if they appear on a device.  An app can opt-out by switching to UseCoreWindow.
     -->
 
-    <Page.Resources>
+    <Page.Resources >
         <DataTemplate x:Key="NavMenuItemTemplate" x:DataType="local:NavMenuItem">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -73,6 +73,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
+        
         <TextBlock x:Name="PageNameTextBlock" Grid.Row="0" VerticalAlignment="Center" FontSize="22" Margin="58,0,0,0" />
         <!-- Top-level navigation menu + app content -->
         <SplitView x:Name="RootSplitView"
@@ -129,7 +130,7 @@
                             Content="&#xE713;"
                             AutomationProperties.Name="Settings"
                             ToolTipService.ToolTip="Settings"
-                            Visibility="Collapsed"/>
+                            Visibility="Collapsed" />
                 </Grid>
             </SplitView.Pane>
 
