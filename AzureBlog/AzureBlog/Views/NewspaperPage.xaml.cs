@@ -76,6 +76,7 @@ namespace AzureBlog.Views
             if (numberColumns == 1)
             {
                 appItemsPanel.ItemWidth = e.NewSize.Width;
+
             }
             else
             { 
