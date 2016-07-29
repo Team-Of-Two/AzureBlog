@@ -27,6 +27,7 @@ namespace AzureBlog
 
     public sealed partial class AppShell : Page
     {
+        public ProgressRing _prAppProgressRing; 
         //public Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
 
         private bool isPaddingAdded = false;
@@ -81,8 +82,10 @@ namespace AzureBlog
         /// </summary>
         public AppShell()
         {
+
             this.InitializeComponent();
 
+            
             this.Loaded += (sender, args) =>
             {
                 Current = this;
@@ -107,6 +110,8 @@ namespace AzureBlog
 
 
             NavMenuList.ItemsSource = navlist;
+            _prAppProgressRing = this.prAppProgress;
+            
         }
 
         public Frame AppFrame { get { return this.frame; } }

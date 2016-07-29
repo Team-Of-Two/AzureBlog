@@ -32,8 +32,11 @@
                 <TextBlock x:Name="Text" Grid.Column="1" Text="{x:Bind Label}" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="NoWrap"/>
             </Grid>
         </DataTemplate>
+
     </Page.Resources>
 
+
+    
     <Grid x:Name="LayoutRoot" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"></RowDefinition>
@@ -149,7 +152,9 @@
                         </NavigationThemeTransition>
                     </TransitionCollection>
                 </Frame.ContentTransitions>
+                
             </Frame>
+            
         </SplitView>
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
@@ -163,5 +168,7 @@
                       Checked="TogglePaneButton_Checked"
                       AutomationProperties.Name="Menu"
                       ToolTipService.ToolTip="Menu" />
+        <ProgressRing Grid.Row="1" Name="prAppProgress" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" Width="100" Height="100" ></ProgressRing>
+        
     </Grid>
 </Page>

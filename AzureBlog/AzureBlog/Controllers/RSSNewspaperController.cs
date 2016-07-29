@@ -32,6 +32,7 @@ namespace AzureBlog.Controllers
 
         public async Task UpdateNewspaperAsync()
         {
+            
             // loop through the logic to add articles to the newspaper for each source
             foreach(NewsSource ns in _newsSourceList)
             {

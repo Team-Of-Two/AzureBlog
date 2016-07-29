@@ -24,7 +24,7 @@ namespace AzureBlog.Views
     {
         //Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
         Controllers.RSSNewspaperController _currentController = AzureBlog.App._currentNewspaperController;
-        
+
         public NewspaperPage()
         {
             this.InitializeComponent();
@@ -91,7 +91,9 @@ namespace AzureBlog.Views
 
         private void RefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+
             abNewspaperControls.IsOpen = false;
+            
             this.UpdateNewspaperAsync();
         }
 
@@ -103,6 +105,7 @@ namespace AzureBlog.Views
 
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
+
 
         }
     }
