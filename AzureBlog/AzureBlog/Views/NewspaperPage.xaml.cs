@@ -91,6 +91,7 @@ namespace AzureBlog.Views
 
         private void RefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            abNewspaperControls.IsOpen = false;
             this.UpdateNewspaperAsync();
         }
 
@@ -102,6 +103,7 @@ namespace AzureBlog.Views
 
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
+
         }
     }
 }

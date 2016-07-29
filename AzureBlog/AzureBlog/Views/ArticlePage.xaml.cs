@@ -86,6 +86,7 @@ namespace AzureBlog.Views
         private void abbShare_Click(object sender, RoutedEventArgs e)
         {
             DataTransferManager.ShowShareUI();
+            abArticlePage.IsOpen = false;
         }
 
         private void ShareSourceLoad()
@@ -120,6 +121,7 @@ namespace AzureBlog.Views
                 Uri originalArticleURI = new Uri(_Article.OriginalArticleUriString);
                 await Launcher.LaunchUriAsync(originalArticleURI);
             }
+            abArticlePage.IsOpen = false;
         }
     }
 }
