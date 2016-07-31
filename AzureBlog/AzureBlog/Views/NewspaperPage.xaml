@@ -17,12 +17,29 @@
         </AppBar>
     </Page.BottomAppBar>
     -->
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
+            <RowDefinition Height="0"/> <!-- this is for the Categories. This is 48px high-->
+            <RowDefinition Height="0"/> <!--this is for the indeterminate progress bar. Leave it 0 and code will increase it as needed-->
             <RowDefinition Height="*"/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
-        <GridView x:Name="NewspaperGridView" Grid.Row="0"
+        <Pivot x:Name="rootPivot" SelectionChanged="rootPivot_SelectionChanged" >
+            <PivotItem Header="All">
+                <!--Pivot content goes here-->
+                <TextBlock Text="Content of pivot item 1."/>
+            </PivotItem>
+            <PivotItem Header="Big Data">
+                <!--Pivot content goes here-->
+                <TextBlock Text="Content of pivot item 2."/>
+            </PivotItem>
+            <PivotItem Header="Networking">
+                <!--Pivot content goes here-->
+                <TextBlock Text="Content of pivot item 3."/>
+            </PivotItem>
+        </Pivot>
+        <ProgressBar Name="RefreshProgressBar" Grid.Row="1" IsIndeterminate="True"/>
+        <GridView x:Name="NewspaperGridView" Grid.Row="2"
             IsItemClickEnabled="True"
             ItemClick="NewspaperGridView_ItemClick"
             IsSwipeEnabled="False"
@@ -52,7 +69,7 @@
             </GridView.ItemContainerTransitions>
             
         </GridView>
-        <AppBar x:Name="abNewspaperControls" Grid.Row="1" VerticalAlignment="Top" IsOpen="False" IsSticky="False" Height="52" Margin="0,0,0,0" >
+        <AppBar x:Name="abNewspaperControls" Grid.Row="3" VerticalAlignment="Top" IsOpen="False" IsSticky="False" Height="52" Margin="0,0,0,0" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="auto" VerticalAlignment="Top" Margin="0,0,0,0">
                 <AppBarButton Name="RefreshAppBarButton" Icon="Refresh" ToolTipService.ToolTip="Refresh" Click="RefreshAppBarButton_Click" Margin="0,0,0,0" VerticalAlignment="Top"/>
             </StackPanel>

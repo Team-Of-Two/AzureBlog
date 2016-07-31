@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Collections.ObjectModel;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -99,12 +100,29 @@ namespace AzureBlog.Views
 
         private async void UpdateNewspaperAsync()
         {
-
+            //added progressbar to show when newspaper articles are being refreshed. 
+            //the constructor for AppShell and this should probably be refactored to be in the same place. 
+            //Show the progressbar by giving the row height
+            LayoutGrid.RowDefinitions[1].Height = new GridLength(12);
             // update newspaper from rss feed
             await _currentController.UpdateNewspaperAsync();
 
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
+            
+            //hide the progressbar by returning the height to 0
+            LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
+        }
+
+        private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           
+            
+            Windows.UI.Xaml.Controls.PivotItem pivotItem0 = (Windows.UI.Xaml.Controls.PivotItem )e.AddedItems[0];
+
+            string category = (string) pivotItem0.Header;
+
+           // var view = new observablecollectionview<Article>(_currentController.RSSNewspaper);
 
 
         }
