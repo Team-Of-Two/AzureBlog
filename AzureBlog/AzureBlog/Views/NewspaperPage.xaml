@@ -19,23 +19,16 @@
     -->
     <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"/> <!-- this is for the Categories. This is 48px high-->
+            <RowDefinition Height="48"/> <!-- this is for the Categories. This is 48px high-->
             <RowDefinition Height="0"/> <!--this is for the indeterminate progress bar. Leave it 0 and code will increase it as needed-->
             <RowDefinition Height="*"/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
-        <Pivot x:Name="rootPivot" SelectionChanged="rootPivot_SelectionChanged" >
+        <Pivot x:Name="rootPivot" 
+               SelectionChanged="rootPivot_SelectionChanged" >
             <PivotItem Header="All">
                 <!--Pivot content goes here-->
                 <TextBlock Text="Content of pivot item 1."/>
-            </PivotItem>
-            <PivotItem Header="Big Data">
-                <!--Pivot content goes here-->
-                <TextBlock Text="Content of pivot item 2."/>
-            </PivotItem>
-            <PivotItem Header="Networking">
-                <!--Pivot content goes here-->
-                <TextBlock Text="Content of pivot item 3."/>
             </PivotItem>
         </Pivot>
         <ProgressBar Name="RefreshProgressBar" Grid.Row="1" IsIndeterminate="True"/>

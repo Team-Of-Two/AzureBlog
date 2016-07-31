@@ -109,9 +109,29 @@ namespace AzureBlog.Views
 
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
-            
+
+            WriteCategoriesToPivot();
             //hide the progressbar by returning the height to 0
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
+        }
+
+        private void WriteCategoriesToPivot()
+        {
+            //example code that writes the changes to a new observable collection and updates the pivot list from there
+            //https://social.msdn.microsoft.com/Forums/en-US/a5bcb5b6-1b6d-4c65-accd-c5840f984afc/uwp-adding-pivotitem-programmatically-generates-exception?forum=wpdevelop
+
+            //clear the pivot list. 
+            foreach (object item in rootPivot.Items)
+            {
+                
+            }
+           
+            foreach (string category in _currentController.RSSNewspaper.Categories)
+            {
+                PivotItem newItem = new PivotItem();
+                newItem.Header = category;
+                rootPivot.Items.Add(newItem);
+            }
         }
 
         private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -122,9 +142,16 @@ namespace AzureBlog.Views
 
             string category = (string) pivotItem0.Header;
 
-           // var view = new observablecollectionview<Article>(_currentController.RSSNewspaper);
+            // var view = new observablecollectionview<Article>(_currentController.RSSNewspaper);
 
-
+            if (category=="All")
+            {
+                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
+            }
+            else
+            { 
+                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
+            }
         }
     }
 }
