@@ -43,7 +43,15 @@ namespace AzureBlog
 
         private void OnResuming(object sender, object e)
         {
-            this.UpdateNewspaperAsync();
+            //this.UpdateNewspaperAsync();
+            AppShell shell = Window.Current.Content as AppShell;
+
+            // refresh newspaper controller here, using the newspaper control and the menthod which has the progress bar. 
+            if (shell.AppFrame.Content.GetType() == typeof(NewspaperPage))
+            {
+                NewspaperPage page = (NewspaperPage)shell.AppFrame.Content;
+                page.UpdateNewspaperAsync();
+            }
         }
 
         /// <summary>
@@ -78,7 +86,7 @@ namespace AzureBlog
             }
 
             // retrieve the newspaper contents from the disk and get the latest articles from the web
-            this.RetrieveAndUpdateNewspaperAsync();
+            //this.RetrieveAndUpdateNewspaperAsync();
 
             AppShell shell = Window.Current.Content as AppShell;
             
@@ -97,6 +105,7 @@ namespace AzureBlog
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
+                   
 
                 }
             }
@@ -111,6 +120,12 @@ namespace AzureBlog
                 shell.AppFrame.Navigate(typeof(NewspaperPage), e.Arguments, new Windows.UI.Xaml.Media.Animation.SuppressNavigationTransitionInfo());
             }
 
+            // refresh newspaper controller here, using the newspaper control and the menthod which has the progress bar. 
+            if (shell.AppFrame.Content.GetType() == typeof(NewspaperPage))
+            {
+                NewspaperPage page = (NewspaperPage) shell.AppFrame.Content;
+                page.UpdateNewspaperAsync();
+            }
             // Ensure the current window is active
             Window.Current.Activate();
         }

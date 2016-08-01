@@ -168,7 +168,6 @@
                       Checked="TogglePaneButton_Checked"
                       AutomationProperties.Name="Menu"
                       ToolTipService.ToolTip="Menu" />
-        <ProgressRing Grid.Row="1" Name="prAppProgress" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="False" Width="100" Height="100" ></ProgressRing>
         
     </Grid>
 </Page>

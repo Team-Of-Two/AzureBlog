@@ -98,7 +98,7 @@ namespace AzureBlog.Views
             this.UpdateNewspaperAsync();
         }
 
-        private async void UpdateNewspaperAsync()
+        public async void UpdateNewspaperAsync()
         {
             //added progressbar to show when newspaper articles are being refreshed. 
             //the constructor for AppShell and this should probably be refactored to be in the same place. 
@@ -114,6 +114,29 @@ namespace AzureBlog.Views
             //hide the progressbar by returning the height to 0
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
         }
+
+        private async void RetrieveAndUpdateNewspaperAsync()
+        {
+            try
+            {
+                // retrieve newspaper from storage
+                await _currentController.RetrieveNewspaperFromStorageAsync();
+
+                // update newspaper from rss feed
+                await _currentController.UpdateNewspaperAsync();
+
+                // save newspaper to storage
+                await _currentController.SendNewspaperToStorageAsync();
+            }
+            catch (Exception e)
+            {
+                // couldn't retrieve and update the newspaper
+                return;
+            }
+        }
+
+  
+
 
         private void WriteCategoriesToPivot()
         {
@@ -142,7 +165,9 @@ namespace AzureBlog.Views
 
             string category = (string) pivotItem0.Header;
 
-            // var view = new observablecollectionview<Article>(_currentController.RSSNewspaper);
+            //not sure this did anything, so commenting out for the momnet - 1/8/2016
+            //NewspaperGridView.Transitions = new Windows.UI.Xaml.Media.Animation.TransitionCollection();
+            //NewspaperGridView.Transitions.Add(new Windows.UI.Xaml.Media.Animation.RepositionThemeTransition());                   
 
             if (category=="All")
             {
