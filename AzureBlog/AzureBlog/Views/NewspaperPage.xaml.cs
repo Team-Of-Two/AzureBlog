@@ -25,6 +25,7 @@ namespace AzureBlog.Views
     {
         //Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
         Controllers.RSSNewspaperController _currentController = AzureBlog.App._currentNewspaperController;
+        Helpers.CategoryHelper categories = new Helpers.CategoryHelper();
 
         public NewspaperPage()
         {
@@ -110,7 +111,7 @@ namespace AzureBlog.Views
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
 
-            WriteCategoriesToPivot();
+          //  WriteCategoriesToPivot();
             //hide the progressbar by returning the height to 0
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
         }

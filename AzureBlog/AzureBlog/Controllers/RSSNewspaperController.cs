@@ -91,18 +91,27 @@ namespace AzureBlog.Controllers
 
         public async Task<ObservableCollection<Article>> GetNewArticlesAsync(NewsSource newsSource)
         {
-            // get the latest articles from the rss feed
-            ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync(newsSource);
             ObservableCollection<Article> newArticlesList = new ObservableCollection<Article>();
 
-            // add any new articles to a new article list
-            // determine if an article is new by seeing if the original article Uri string exists in the articles collection
-            foreach (var article in latestArticleList)
+            try
             {
-                if (this.RSSNewspaper.Articles.FirstOrDefault(a => a.Title == article.Title) == null)
+                // get the latest articles from the rss feed
+                ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync(newsSource);
+                
+                // add any new articles to a new article list
+                // determine if an article is new by seeing if the original article Uri string exists in the articles collection
+                foreach (var article in latestArticleList)
                 {
-                    newArticlesList.Add(article);
+                    if (this.RSSNewspaper.Articles.FirstOrDefault(a => a.Title == article.Title) == null)
+                    {
+                        newArticlesList.Add(article);
+                    }
                 }
+            }
+            catch
+            {
+                //unable to get a new RSS feed. GetLatestArticlesAsync throws an error if it can't
+                //get the next article(s). Do something with that here rather than crshing. 
             }
             
             // return the new articles

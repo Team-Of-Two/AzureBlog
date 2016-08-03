@@ -25,11 +25,8 @@
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
         <Pivot x:Name="rootPivot" 
-               SelectionChanged="rootPivot_SelectionChanged" >
-            <PivotItem Header="All">
-                <!--Pivot content goes here-->
-                <TextBlock Text="Content of pivot item 1."/>
-            </PivotItem>
+               SelectionChanged="rootPivot_SelectionChanged"
+               ItemsSource="{x:Bind categories}">
         </Pivot>
         <ProgressBar Name="RefreshProgressBar" Grid.Row="1" IsIndeterminate="True"/>
         <GridView x:Name="NewspaperGridView" Grid.Row="2"
