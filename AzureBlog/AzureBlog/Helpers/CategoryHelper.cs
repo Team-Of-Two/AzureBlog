@@ -7,25 +7,16 @@ using System.Collections.ObjectModel;
 
 namespace AzureBlog.Helpers
 {
-    class CategoryHelper
+    public class CategoryHelper
     {
         //private ObservableCollection<string> categoryList;
-        public CategoryHelper()
+        public ObservableCollection<string> categoryList = new ObservableCollection<string>();
+
+
+
+       public CategoryHelper()
         {
             setupCategories();
-        }
-       
-        public ObservableCollection<string> categoryList
-        {
-            get
-            {
-                return categoryList;
-            }
-
-            set
-            {
-                categoryList = value;
-            }
         }
 
         private void setupCategories()

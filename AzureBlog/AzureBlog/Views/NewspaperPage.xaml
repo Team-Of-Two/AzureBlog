@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <Pivot x:Name="rootPivot" 
                SelectionChanged="rootPivot_SelectionChanged"
-               ItemsSource="{x:Bind categories}">
+               ItemsSource="{x:Bind categories.categoryList}">
         </Pivot>
         <ProgressBar Name="RefreshProgressBar" Grid.Row="1" IsIndeterminate="True"/>
         <GridView x:Name="NewspaperGridView" Grid.Row="2"

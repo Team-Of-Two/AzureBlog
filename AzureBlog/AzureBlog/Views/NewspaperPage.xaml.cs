@@ -116,10 +116,15 @@ namespace AzureBlog.Views
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
         }
 
-        private async void RetrieveAndUpdateNewspaperAsync()
+        public async void RetrieveAndUpdateNewspaperAsync()
         {
             try
             {
+                //added progressbar to show when newspaper articles are being refreshed. 
+                //the constructor for AppShell and this should probably be refactored to be in the same place. 
+                //Show the progressbar by giving the row height
+                LayoutGrid.RowDefinitions[1].Height = new GridLength(12);
+
                 // retrieve newspaper from storage
                 await _currentController.RetrieveNewspaperFromStorageAsync();
 
@@ -128,6 +133,10 @@ namespace AzureBlog.Views
 
                 // save newspaper to storage
                 await _currentController.SendNewspaperToStorageAsync();
+
+                //hide the progressbar by returning the height to 0
+                LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
+
             }
             catch (Exception e)
             {
@@ -139,32 +148,14 @@ namespace AzureBlog.Views
   
 
 
-        private void WriteCategoriesToPivot()
+         private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //example code that writes the changes to a new observable collection and updates the pivot list from there
-            //https://social.msdn.microsoft.com/Forums/en-US/a5bcb5b6-1b6d-4c65-accd-c5840f984afc/uwp-adding-pivotitem-programmatically-generates-exception?forum=wpdevelop
 
-            //clear the pivot list. 
-            foreach (object item in rootPivot.Items)
-            {
-                
-            }
-           
-            foreach (string category in _currentController.RSSNewspaper.Categories)
-            {
-                PivotItem newItem = new PivotItem();
-                newItem.Header = category;
-                rootPivot.Items.Add(newItem);
-            }
-        }
 
-        private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           
-            
-            Windows.UI.Xaml.Controls.PivotItem pivotItem0 = (Windows.UI.Xaml.Controls.PivotItem )e.AddedItems[0];
+            //Windows.UI.Xaml.Controls.PivotItem pivotItem0 = (Windows.UI.Xaml.Controls.PivotItem )e.AddedItems[0];
+            string category = (string) e.AddedItems[0];
 
-            string category = (string) pivotItem0.Header;
+            //string category = (string) pivotItem0.Header;
 
             //not sure this did anything, so commenting out for the momnet - 1/8/2016
             //NewspaperGridView.Transitions = new Windows.UI.Xaml.Media.Animation.TransitionCollection();

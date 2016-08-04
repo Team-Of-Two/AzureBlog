@@ -180,10 +180,20 @@ namespace AzureBlog.Controllers
                 }
 
                 // loop through the categories and add them the list of categories for the new Article
+
+
                 foreach (var category in item.Categories)
-                {
+                {                    
                     newCategoriesList.Add(category.Term);
                 }
+                //if the category isn't in the list of high level categories, add it to "other"
+                Helpers.CategoryHelper categoryList = new Helpers.CategoryHelper();
+                string mainCategory = categoryList.getMainCategory(newCategoriesList);
+                if (mainCategory == "Other")
+                {
+                    newCategoriesList.Add("Other");
+                }
+
 
                 // find an image Uri in the SyndicationItem's summary text and set it to the image URI
                 if (item.Summary.Text.Contains("<img ")) // if there is an img tag within the RSS article (i.e. if the article contains an image)

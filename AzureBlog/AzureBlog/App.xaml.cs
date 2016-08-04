@@ -124,7 +124,7 @@ namespace AzureBlog
             if (shell.AppFrame.Content.GetType() == typeof(NewspaperPage))
             {
                 NewspaperPage page = (NewspaperPage) shell.AppFrame.Content;
-                page.UpdateNewspaperAsync();
+                page.RetrieveAndUpdateNewspaperAsync();
             }
             // Ensure the current window is active
             Window.Current.Activate();
