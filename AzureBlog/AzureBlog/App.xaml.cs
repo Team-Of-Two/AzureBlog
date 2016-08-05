@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace AzureBlog
 {
+    using Microsoft.HockeyApp;
     using Views;
     using Windows.UI;
     using Windows.UI.ViewManagement;
@@ -39,6 +40,7 @@ namespace AzureBlog
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.Resuming += OnResuming;
+            Microsoft.HockeyApp.HockeyClient.Current.Configure(Secrets.HockeyAppId);
         }
 
         private void OnResuming(object sender, object e)
