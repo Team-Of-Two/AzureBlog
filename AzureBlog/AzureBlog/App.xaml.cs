@@ -87,6 +87,27 @@ namespace AzureBlog
                 titleBar.ButtonInactiveForegroundColor = Colors.Gray;
             }
 
+            //Prelaunch stub for app certification 
+            //
+            //FAILED
+            //App prelaunch
+            //Error Found: The app prelaunch validation detected the following errors:
+            //The app failed prelaunch test - 24176TeamOfTwo.AzureNewsReader_1.2.11.0_x64__dv9pf32bhbfma.
+            //Impact if not fixed: The app will take a longer time to launch, even when prelaunch is enabled.
+            //How to fix: In the OnLaunched method implementation of the app, ensure you handle the LaunchActivatedEventArgs.PreLaunch option to be prelaunch event aware.
+            //https://msdn.microsoft.com/en-us/windows/uwp/launch-resume/handle-app-prelaunch
+
+
+            //
+            if (!e.PrelaunchActivated)
+            {
+                // TODO: This is not a prelaunch activation. Perform operations which
+                // assume that the user explicitly launched the app such as updating
+                // the online presence of the user on a social network, updating a
+                // what's new feed, etc.
+            }
+
+
             // retrieve the newspaper contents from the disk and get the latest articles from the web
             //this.RetrieveAndUpdateNewspaperAsync();
 
