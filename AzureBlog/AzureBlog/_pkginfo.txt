@@ -1,1 +1,1 @@
-C:\Users\simonbro\Source\Repos\AzureBlog\AzureBlog\AzureBlog\AppPackages\AzureBlog_1.2.5.0\AzureBlog_1.2.5.0_x86_x64_arm.appxbundle
+C:\Users\simonbro\Source\Repos\AzureBlog\AzureBlog\AzureBlog\AppPackages\AzureBlog_1.2.11.0\AzureBlog_1.2.11.0_x86_x64_arm.appxbundle
