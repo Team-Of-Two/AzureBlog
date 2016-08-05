@@ -115,6 +115,7 @@
     <Compile Include="Controls\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CategoryHelper.cs" />
     <Compile Include="Helpers\WebContentHelper.cs" />
     <Compile Include="Models\INewspaper.cs" />
     <Compile Include="Models\Article.cs" />

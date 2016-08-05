@@ -55,7 +55,7 @@
             <WebView  x:Name="ArticleWebview" Grid.ColumnSpan="3" NavigationStarting="ArticleWebview_NavigationStarting"/>
       
         </Grid>
-        <AppBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" IsOpen="False" IsSticky="True" Height="52" Margin="0,0,0,0">
+        <AppBar x:Name="abArticlePage" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" IsOpen="False" IsSticky="True" Height="52" Margin="0,0,0,0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="auto">
                 <AppBarButton Name="abbShare" ToolTipService.ToolTip ="Share" Click="abbShare_Click" >
                     <AppBarButton.Icon>

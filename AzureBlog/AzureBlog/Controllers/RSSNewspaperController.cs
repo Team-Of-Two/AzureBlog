@@ -32,6 +32,7 @@ namespace AzureBlog.Controllers
 
         public async Task UpdateNewspaperAsync()
         {
+            
             // loop through the logic to add articles to the newspaper for each source
             foreach(NewsSource ns in _newsSourceList)
             {
@@ -90,18 +91,27 @@ namespace AzureBlog.Controllers
 
         public async Task<ObservableCollection<Article>> GetNewArticlesAsync(NewsSource newsSource)
         {
-            // get the latest articles from the rss feed
-            ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync(newsSource);
             ObservableCollection<Article> newArticlesList = new ObservableCollection<Article>();
 
-            // add any new articles to a new article list
-            // determine if an article is new by seeing if the original article Uri string exists in the articles collection
-            foreach (var article in latestArticleList)
+            try
             {
-                if (this.RSSNewspaper.Articles.FirstOrDefault(a => a.Title == article.Title) == null)
+                // get the latest articles from the rss feed
+                ObservableCollection<Article> latestArticleList = await this.GetLatestArticlesAsync(newsSource);
+                
+                // add any new articles to a new article list
+                // determine if an article is new by seeing if the original article Uri string exists in the articles collection
+                foreach (var article in latestArticleList)
                 {
-                    newArticlesList.Add(article);
+                    if (this.RSSNewspaper.Articles.FirstOrDefault(a => a.Title == article.Title) == null)
+                    {
+                        newArticlesList.Add(article);
+                    }
                 }
+            }
+            catch
+            {
+                //unable to get a new RSS feed. GetLatestArticlesAsync throws an error if it can't
+                //get the next article(s). Do something with that here rather than crshing. 
             }
             
             // return the new articles
@@ -170,10 +180,20 @@ namespace AzureBlog.Controllers
                 }
 
                 // loop through the categories and add them the list of categories for the new Article
+
+
                 foreach (var category in item.Categories)
-                {
+                {                    
                     newCategoriesList.Add(category.Term);
                 }
+                //if the category isn't in the list of high level categories, add it to "other"
+                Helpers.CategoryHelper categoryList = new Helpers.CategoryHelper();
+                string mainCategory = categoryList.getMainCategory(newCategoriesList);
+                if (mainCategory == "Other")
+                {
+                    newCategoriesList.Add("Other");
+                }
+
 
                 // find an image Uri in the SyndicationItem's summary text and set it to the image URI
                 if (item.Summary.Text.Contains("<img ")) // if there is an img tag within the RSS article (i.e. if the article contains an image)
