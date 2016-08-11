@@ -20,6 +20,7 @@ using Windows.UI.Xaml.Navigation;
 namespace AzureBlog
 {
     using Microsoft.HockeyApp;
+    using System.Threading.Tasks;
     using Views;
     using Windows.UI;
     using Windows.UI.ViewManagement;
@@ -38,9 +39,12 @@ namespace AzureBlog
         public App()
         {
             this.InitializeComponent();
+            
+
             this.Suspending += OnSuspending;
             this.Resuming += OnResuming;
             Microsoft.HockeyApp.HockeyClient.Current.Configure(Secrets.HockeyAppId);
+
         }
 
         private void OnResuming(object sender, object e)
@@ -101,10 +105,13 @@ namespace AzureBlog
             //
             if (!e.PrelaunchActivated)
             {
+                RetriveNewspaperFromStorageAsync();
+
                 // TODO: This is not a prelaunch activation. Perform operations which
                 // assume that the user explicitly launched the app such as updating
                 // the online presence of the user on a social network, updating a
                 // what's new feed, etc.
+
             }
 
 
@@ -147,11 +154,23 @@ namespace AzureBlog
             if (shell.AppFrame.Content.GetType() == typeof(NewspaperPage))
             {
                 NewspaperPage page = (NewspaperPage) shell.AppFrame.Content;
-                page.RetrieveAndUpdateNewspaperAsync();
+                //page.showProgressBar();
+                //RetrieveAndUpdateNewspaperAsync();
+                //page.hideProgressBar();
+
+
+ //               page.setPivotToAnnouncements();
+                //_currentNewspaperController.RSSNewspaper.Articles.Add(new Models.Article());
+                
             }
             // Ensure the current window is active
             Window.Current.Activate();
+            
+
         }
+
+
+
 
         /// <summary>
         /// Invoked when Navigation to a certain page fails
@@ -175,6 +194,13 @@ namespace AzureBlog
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private async void RetriveNewspaperFromStorageAsync()
+        {
+            
+            await _currentNewspaperController.RetrieveNewspaperFromStorageAsync();
+            
         }
 
         private async void RetrieveAndUpdateNewspaperAsync()

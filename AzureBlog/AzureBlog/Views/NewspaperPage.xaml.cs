@@ -21,11 +21,24 @@ namespace AzureBlog.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NewspaperPage : Page
+    public sealed partial class NewspaperPage : Page    
     {
         //Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
         Controllers.RSSNewspaperController _currentController = AzureBlog.App._currentNewspaperController;
         Helpers.CategoryHelper categories = new Helpers.CategoryHelper();
+
+        protected override void OnNavigatedTo(NavigationEventArgs e        )
+        {
+            NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
+            
+               
+        }
+
+        public void setPivotToAnnouncements()
+        {
+            rootPivot.SelectedIndex = 1;
+        }
+
 
         public NewspaperPage()
         {
@@ -33,6 +46,8 @@ namespace AzureBlog.Views
             
 
         }
+
+
 
         private void NewspaperGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -108,45 +123,62 @@ namespace AzureBlog.Views
             // update newspaper from rss feed
             await _currentController.UpdateNewspaperAsync();
 
+
+
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
 
+            
           //  WriteCategoriesToPivot();
             //hide the progressbar by returning the height to 0
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
         }
 
-        public async void RetrieveAndUpdateNewspaperAsync()
+        public void showProgressBar()
         {
-            try
-            {
-                //added progressbar to show when newspaper articles are being refreshed. 
-                //the constructor for AppShell and this should probably be refactored to be in the same place. 
-                //Show the progressbar by giving the row height
-                LayoutGrid.RowDefinitions[1].Height = new GridLength(12);
-
-                // retrieve newspaper from storage
-                await _currentController.RetrieveNewspaperFromStorageAsync();
-
-                // update newspaper from rss feed
-                await _currentController.UpdateNewspaperAsync();
-
-                // save newspaper to storage
-                await _currentController.SendNewspaperToStorageAsync();
-
-                //hide the progressbar by returning the height to 0
-                LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
-
-            }
-            catch (Exception e)
-            {
-                // couldn't retrieve and update the newspaper
-                return;
-            }
+            LayoutGrid.RowDefinitions[1].Height = new GridLength(12);
         }
 
-  
+        public void hideProgressBar()
+        {
+            LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
 
+        }
+        //public async void RetrieveAndUpdateNewspaperAsync()
+        //{
+        //    try
+        //    {
+
+        //        // retrieve newspaper from storage
+        //        await _currentController.RetrieveNewspaperFromStorageAsync();
+
+        //        //for this release, change the categories for old stateful articles so they end up in the "All" Category
+        //        Helpers.CategoryHelper remediateCategories = new Helpers.CategoryHelper();
+        //        foreach (Models.IArticle article in _currentController.RSSNewspaper.Articles)
+        //        {
+        //            remediateCategories.remediateArticle(article);
+        //        }
+
+
+        //        // update newspaper from rss feed
+        //        await _currentController.UpdateNewspaperAsync();
+
+        //        // save newspaper to storage
+        //        await _currentController.SendNewspaperToStorageAsync();
+
+        //        //hide the progressbar by returning the height to 0
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        // couldn't retrieve and update the newspaper
+        //        //return;
+        //        throw e;
+        //    }
+        //}
+
+  
+        
 
          private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -161,14 +193,16 @@ namespace AzureBlog.Views
             //NewspaperGridView.Transitions = new Windows.UI.Xaml.Media.Animation.TransitionCollection();
             //NewspaperGridView.Transitions.Add(new Windows.UI.Xaml.Media.Animation.RepositionThemeTransition());                   
 
-            if (category=="All")
-            {
-                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
-            }
-            else
-            { 
+            //if (category=="All")
+            //{
+            //    NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
+            //    
+            //}
+            //else
+            //{ 
                 NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
-            }
+             
+            //}
         }
     }
 }

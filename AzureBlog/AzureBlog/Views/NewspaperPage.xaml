@@ -17,6 +17,8 @@
         </AppBar>
     </Page.BottomAppBar>
     -->
+    
+    
     <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/> <!-- this is for the Categories. This is 48px high-->
@@ -32,10 +34,11 @@
         <GridView x:Name="NewspaperGridView" Grid.Row="2"
             IsItemClickEnabled="True"
             ItemClick="NewspaperGridView_ItemClick"
+            ItemsSource="{x:Bind _currentController.RSSNewspaper.Articles, Mode=OneWay}"
             IsSwipeEnabled="False"
             CanDragItems="False"
-            SelectionMode="Single" RequestedTheme="Light"
-            ItemsSource="{x:Bind _currentController.RSSNewspaper.Articles}">
+            SelectionMode="Single" RequestedTheme="Light" >
+
 
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Article">

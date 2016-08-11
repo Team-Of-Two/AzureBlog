@@ -1,0 +1,45 @@
+﻿<UserControl
+    x:Class="AzureBlog.Controls.NewspaperGridview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AzureBlog.Controls"
+    xmlns:models="using:AzureBlog.Models"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <GridView x:Name="NewspaperGridView" Grid.Row="2"
+            IsItemClickEnabled="True"
+            ItemClick="NewspaperGridView_ItemClick"
+            IsSwipeEnabled="False"
+            CanDragItems="False"
+            SelectionMode="Single" RequestedTheme="Light"
+            ItemsSource="{x:Bind _articles}"> 
+         
+
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="models:Article">
+                <Grid x:Name="ArticleGrid" Background="#FF939598" Margin="15,15,0,0" Height="320">
+                    <Image Source="{x:Bind ImageUriString}" Stretch="UniformToFill"/>
+                    <StackPanel Orientation="Vertical" Background="#CC000000" Margin="3,0,3,4" Height="130" VerticalAlignment="Bottom">
+                        <TextBlock Text="{x:Bind Title}" FontSize="22" Foreground="White" Margin="10,4,10,0" Height="60" LineHeight="0" TextWrapping="Wrap" TextTrimming="WordEllipsis" HorizontalAlignment="Left"/>
+                        <TextBlock Text="{x:Bind PublishedDateTimeString}" Foreground="LightGray" FontSize="12" Margin="10,10,10,0"/>
+                        <TextBlock Text="{x:Bind AuthorsString}" Foreground="LightGray" FontSize="12" Margin="10,0,10,0"/>
+                        <TextBlock Text="{x:Bind CategoriesString}" Foreground="LightGray" FontSize="12" Margin="10,0,10,0"/>
+                    </StackPanel>
+                </Grid>
+
+            </DataTemplate>
+        </GridView.ItemTemplate>
+
+        <GridView.ItemContainerTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition />
+            </TransitionCollection>
+        </GridView.ItemContainerTransitions>
+
+    </GridView>
+
+</UserControl>
