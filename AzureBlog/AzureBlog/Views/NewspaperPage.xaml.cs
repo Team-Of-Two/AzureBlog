@@ -31,7 +31,8 @@ namespace AzureBlog.Views
         {
             NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
 
-            UpdateNewspaperAsync();   
+            UpdateNewspaperAsync();
+            setPivotToAnnouncements();
         }
 
         public void setPivotToAnnouncements()
@@ -92,8 +93,10 @@ namespace AzureBlog.Views
 
             if (numberColumns == 1)
             {
+                
                 appItemsPanel.ItemWidth = e.NewSize.Width;
 
+                
             }
             else
             { 
@@ -102,15 +105,12 @@ namespace AzureBlog.Views
             }
             
             appItemsPanel.ItemHeight = 340;
-            
-            
         }
 
         private void RefreshAppBarButton_Click(object sender, RoutedEventArgs e)
         {
 
             abNewspaperControls.IsOpen = false;
-            
             this.UpdateNewspaperAsync();
         }
 
@@ -123,86 +123,34 @@ namespace AzureBlog.Views
             // update newspaper from rss feed
             await _currentController.UpdateNewspaperAsync();
 
-
-
             // save newspaper to storage
             await _currentController.SendNewspaperToStorageAsync();
-
-            
-          //  WriteCategoriesToPivot();
+           
             //hide the progressbar by returning the height to 0
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
         }
 
         public void showProgressBar()
         {
+            //when called from externally, expose the progressbar
             LayoutGrid.RowDefinitions[1].Height = new GridLength(12);
         }
 
         public void hideProgressBar()
         {
+            //when called from externally, hide the progressbar
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
-
         }
-        //public async void RetrieveAndUpdateNewspaperAsync()
-        //{
-        //    try
-        //    {
-
-        //        // retrieve newspaper from storage
-        //        await _currentController.RetrieveNewspaperFromStorageAsync();
-
-        //        //for this release, change the categories for old stateful articles so they end up in the "All" Category
-        //        Helpers.CategoryHelper remediateCategories = new Helpers.CategoryHelper();
-        //        foreach (Models.IArticle article in _currentController.RSSNewspaper.Articles)
-        //        {
-        //            remediateCategories.remediateArticle(article);
-        //        }
-
-
-        //        // update newspaper from rss feed
-        //        await _currentController.UpdateNewspaperAsync();
-
-        //        // save newspaper to storage
-        //        await _currentController.SendNewspaperToStorageAsync();
-
-        //        //hide the progressbar by returning the height to 0
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        // couldn't retrieve and update the newspaper
-        //        //return;
-        //        throw e;
-        //    }
-        //}
 
   
         
 
          private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-
-            //Windows.UI.Xaml.Controls.PivotItem pivotItem0 = (Windows.UI.Xaml.Controls.PivotItem )e.AddedItems[0];
+           
             string category = (string) e.AddedItems[0];
-
-            //string category = (string) pivotItem0.Header;
-
-            //not sure this did anything, so commenting out for the momnet - 1/8/2016
-            //NewspaperGridView.Transitions = new Windows.UI.Xaml.Media.Animation.TransitionCollection();
-            //NewspaperGridView.Transitions.Add(new Windows.UI.Xaml.Media.Animation.RepositionThemeTransition());                   
-
-            //if (category=="All")
-            //{
-            //    NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
-            //    
-            //}
-            //else
-            //{ 
-                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
+            NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
              
-            //}
         }
     }
 }

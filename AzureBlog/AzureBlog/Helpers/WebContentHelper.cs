@@ -37,12 +37,12 @@ namespace AzureBlog.Helpers
                 "h2{{font-size: 20px;position: static}} " +
                 "h3{{font-size: 18px;position: static; color:purple}} " +
                 "h4{{font-size: 14px;position: static; color:gray;margin: 0px 0px 0px 0px;font-style: normal;}} " +
-                "h5{{font-size: 16px;position: static; color:green;margin-top: 10px;margin-bottom: 10px}} " +
-                "a:link{{color:darkcyan;text-decoration:none}} " +
-                "a:visited{{color:darkcyan;text-decoration:none}} " +
+                "h5{{font-size: 18px;position: static; color:#0080ff;margin-top: 10px;margin-bottom: 10px}} " +
+                "a:link{{color:#ff60ff;text-decoration:none}} " +
+                "a:visited{{color:#ff60ff;text-decoration:none}} " +
                 "a:hover{{text-decoration:underline}}" +
 
-            "body {{background:black;color:white;font-family:'Segoe UI';font-size:16px;margin:0;padding:0;display: block;" +
+            "body {{background:black;color:white;font-family:'Helvetica';font-size:16px;margin:0;padding:0;display: block;" +
             "height: 100%;" +
             "right:0px;" +
             "left:0px" +
@@ -55,7 +55,7 @@ namespace AzureBlog.Helpers
             "img,p.object,iframe {{ max-width:100%; height:auto }}"));
             head.Append(string.Format("a {{color:blue}}"));
             head.Append("</style>");
-
+            
             // head.Append(NotifyScript);
             head.Append("</head>");
             return head.ToString();
