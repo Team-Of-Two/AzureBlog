@@ -16,6 +16,7 @@ using AzureBlog.Models;
 using AzureBlog.Helpers;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
+using Windows.Storage.Streams;
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace AzureBlog.Views
@@ -98,15 +99,49 @@ namespace AzureBlog.Views
 
         private void DataRequested(DataTransferManager sender, DataRequestedEventArgs e)
         {
-            string messageText = "I found this article using the Azure News Reader app for Windows 10.";
+
+            
+
+            string messageText = "I found this article using the News Reader for Azure app for Windows 10.";
             messageText = string.Format("{0}{1}{2}{3}", messageText, Environment.NewLine, _Article.OriginalArticleUriString, Environment.NewLine);
             DataRequest request = e.Request;
             request.Data.Properties.Title = _Article.Title;
             //request.Data.SetBitmap = _Article.ImageUriString;
             //request.Data.Properties.Description = "An example of how to share text.";
             request.Data.SetText(messageText);
-
+            DataRequestDeferral dataRequestDeferral = request.GetDeferral();
             //request.Data.SetHtmlFormat(_Article.Content);
+
+            // Helpers.ShareHelper share = new Helpers.ShareHelper(_Article);
+            //share.Request = request;
+
+            request.Data.Properties.Description = "Shared from News Reader For Azure";
+
+
+            string localImage = "ms-appx:///Assets/AzureLogo.png";
+            //string localImage = _Article.ImageUriString;
+
+            //string htmlExample = "<p>Here is a local image: <img src=\"" + localImage + "\">.</p>";
+            string testHTMLPrefix = "<p>Here is a local image: <img src=";
+            //string quotes = ((char)34);
+            string testHTMLSuffix = ">.</p>";
+            string htmlExample = string.Format("{0}{1}{2}{3}{4}", testHTMLPrefix, ((char)34), localImage, ((char)34), testHTMLSuffix);
+            //htmlExample = "<p>Here is a local image: <img src =\"file:///13390aca-c9b0-46a3-8866-2e890c9e19e2.png\">.</p>";
+            htmlExample = messageText;
+            string htmlFormat = HtmlFormatHelper.CreateHtmlFormat(htmlExample);
+            System.Diagnostics.Debug.WriteLine(htmlExample);
+
+            
+            //request.Data.SetHtmlFormat(htmlFormat);
+
+            // Because the HTML contains a local image, we need to add it to the ResourceMap.
+            RandomAccessStreamReference streamRef =
+                     RandomAccessStreamReference.CreateFromUri(new Uri(localImage));
+            request.Data.ResourceMap[localImage] = streamRef;
+            dataRequestDeferral.Complete();
+
+
+
         }
 
         private async void abbOpenInBrowser_Click(object sender, RoutedEventArgs e)

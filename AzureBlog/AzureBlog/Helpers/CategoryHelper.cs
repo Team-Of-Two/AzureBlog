@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using AzureBlog.Models;
 
 namespace AzureBlog.Helpers
 {
@@ -59,6 +60,23 @@ namespace AzureBlog.Helpers
             }
 
             return mainCategory;
+        }
+
+        public void remediateArticle(IArticle article)
+        {
+            Boolean categoryAllExists = false;  
+            foreach (string category in article.Categories)
+            {
+                if (category == "All")
+                {
+                    categoryAllExists = true;
+                }
+            }
+            if (!categoryAllExists)
+            {
+                article.Categories.Add("All");
+            }
+
         }
     }
 }
