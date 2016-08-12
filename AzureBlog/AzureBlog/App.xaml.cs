@@ -107,6 +107,13 @@ namespace AzureBlog
             {
                 RetriveNewspaperFromStorageAsync();
 
+                //for this release, change the categories for old stateful articles so they end up in the "All" Category
+                Helpers.CategoryHelper remediateCategories = new Helpers.CategoryHelper();
+                foreach (Models.IArticle article in _currentNewspaperController.RSSNewspaper.Articles)
+                {
+                    remediateCategories.remediateArticle(article);
+                }
+
                 // TODO: This is not a prelaunch activation. Perform operations which
                 // assume that the user explicitly launched the app such as updating
                 // the online presence of the user on a social network, updating a

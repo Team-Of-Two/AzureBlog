@@ -30,8 +30,8 @@ namespace AzureBlog.Views
         protected override void OnNavigatedTo(NavigationEventArgs e        )
         {
             NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
-            
-               
+
+            UpdateNewspaperAsync();   
         }
 
         public void setPivotToAnnouncements()
