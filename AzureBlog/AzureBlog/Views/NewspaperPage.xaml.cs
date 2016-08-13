@@ -23,33 +23,19 @@ namespace AzureBlog.Views
     /// </summary>
     public sealed partial class NewspaperPage : Page    
     {
-        //Models.INewspaper _currentNewspaper = new Models.RSSNewspaper("https://azure.microsoft.com/en-us/blog/feed/");
         Controllers.RSSNewspaperController _currentController = AzureBlog.App._currentNewspaperController;
         Helpers.CategoryHelper categories = new Helpers.CategoryHelper();
 
         protected override void OnNavigatedTo(NavigationEventArgs e        )
         {
-            NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
-
             UpdateNewspaperAsync();
-            setPivotToAnnouncements();
         }
-
-        public void setPivotToAnnouncements()
-        {
-            rootPivot.SelectedIndex = 1;
-        }
-
 
         public NewspaperPage()
         {
             this.InitializeComponent();
-            
-
         }
-
-
-
+        
         private void NewspaperGridView_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.Frame.Navigate(
@@ -141,15 +127,18 @@ namespace AzureBlog.Views
             //when called from externally, hide the progressbar
             LayoutGrid.RowDefinitions[1].Height = new GridLength(0);
         }
-
-  
         
-
-         private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void rootPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
             string category = (string) e.AddedItems[0];
-            NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
+            if (category == "All")
+            {
+                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
+            }
+            else
+            {
+                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
+            }
              
         }
     }
