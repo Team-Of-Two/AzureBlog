@@ -31,7 +31,7 @@ namespace AzureBlog.Helpers
             categoryList.Add("Events");
             categoryList.Add("Identity & Access Management");
             categoryList.Add("Internet of Things");
-            categoryList.Add("IT Pro/ DevOps");
+            categoryList.Add("IT Pro/DevOps");
             categoryList.Add("Management");
             categoryList.Add("Media Services & CDN");
             categoryList.Add("Mobile");
