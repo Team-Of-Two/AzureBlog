@@ -141,5 +141,19 @@ namespace AzureBlog.Views
             }
              
         }
+
+        private void categoriesListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string category = (string)e.AddedItems[0];
+            if (category == "All")
+            {
+                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.Articles;
+            }
+            else
+            {
+                NewspaperGridView.ItemsSource = _currentController.RSSNewspaper.GetArticlesByCategory(category);
+            }
+
+        }
     }
 }

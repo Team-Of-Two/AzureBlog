@@ -26,9 +26,22 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="24"/>
         </Grid.RowDefinitions>
-        <Pivot x:Name="rootPivot" 
+        <ListBox x:Name="categoriesListBox"
+                 ItemsSource="{x:Bind categories.categoryList}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 ScrollViewer.HorizontalScrollMode="Enabled"
+                 SelectionChanged="categoriesListBox_SelectionChanged"
+                 >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+        </ListBox><Pivot x:Name="rootPivot" 
                SelectionChanged="rootPivot_SelectionChanged"
-               ItemsSource="{x:Bind categories.categoryList}">
+               ItemsSource="{x:Bind categories.categoryList}"
+                 Visibility="Collapsed">
         </Pivot>
         <ProgressBar Name="RefreshProgressBar" Grid.Row="1" IsIndeterminate="True"/>
         <GridView x:Name="NewspaperGridView" Grid.Row="2"
