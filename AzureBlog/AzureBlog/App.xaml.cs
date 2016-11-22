@@ -43,7 +43,7 @@ namespace AzureBlog
 
             this.Suspending += OnSuspending;
             this.Resuming += OnResuming;
-            Microsoft.HockeyApp.HockeyClient.Current.Configure(Secrets.HockeyAppId);
+            //Microsoft.HockeyApp.HockeyClient.Current.Configure(Secrets.HockeyAppId);
 
         }
 
