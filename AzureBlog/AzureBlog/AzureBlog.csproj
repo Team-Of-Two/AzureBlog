@@ -188,7 +188,6 @@
     <Content Include="Assets\70-30Icons\StoreLogo.scale-400.png" />
     <Content Include="Assets\70-30Icons\Target.scale-100.png" />
     <Content Include="Assets\70-30Icons\Target.scale-150.png" />
-    <Content Include="Assets\70-30Icons\Target.scale-1600.png" />
     <Content Include="Assets\70-30Icons\Target.scale-300.png" />
     <Content Include="Assets\70-30Icons\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\70-30Icons\Wide310x150Logo.scale-125.png" />
@@ -218,7 +217,6 @@
     <Content Include="Assets\FullHeightIcons\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\FullHeightIcons\Square44x44Logo.scale-400.png" />
     <Content Include="Assets\FullHeightIcons\Square44x44Logo.targetsize-48_altform-unplated.png" />
-    <Content Include="Assets\FullHeightIcons\Square48x48Logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\FullHeightIcons\Square71x71Logo.scale-100.png" />
     <Content Include="Assets\FullHeightIcons\Square71x71Logo.scale-125.png" />
     <Content Include="Assets\FullHeightIcons\Square71x71Logo.scale-150.png" />
@@ -231,7 +229,6 @@
     <Content Include="Assets\FullHeightIcons\StoreLogo.scale-400.png" />
     <Content Include="Assets\FullHeightIcons\Target.scale-100.png" />
     <Content Include="Assets\FullHeightIcons\Target.scale-150.png" />
-    <Content Include="Assets\FullHeightIcons\Target.scale-1600.png" />
     <Content Include="Assets\FullHeightIcons\Target.scale-300.png" />
     <Content Include="Assets\FullHeightIcons\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\FullHeightIcons\Wide310x150Logo.scale-125.png" />
