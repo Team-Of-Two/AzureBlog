@@ -222,7 +222,7 @@ namespace AzureBlog
 
                 // save newspaper to storage
                 await _currentNewspaperController.SendNewspaperToStorageAsync();
-            } catch (Exception e)
+            } catch (Exception)
             {
                 // couldn't retrieve and update the newspaper
                 return;
@@ -238,7 +238,7 @@ namespace AzureBlog
 
                 // save newspaper to storage
                 await _currentNewspaperController.SendNewspaperToStorageAsync();
-            } catch (Exception e)
+            } catch (Exception)
             {
                 // couldn't update the newspaper//
                 return;
